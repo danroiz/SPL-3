@@ -4,11 +4,11 @@ import java.util.ArrayList;
 public class Course {
     private String courseName;
     private int courseId;
-    private int[] kdams;
+    private ArrayList<Integer> kdams;
     private int seats;
     private ArrayList<String> registeredUsers;
 
-    public Course(int courseId, String courseName, int[] kdams, int seats){
+    public Course(int courseId, String courseName, ArrayList<Integer> kdams, int seats){
         this.courseId = courseId;
         this.courseName = courseName;
         this.kdams = kdams;
@@ -16,6 +16,18 @@ public class Course {
         registeredUsers = new ArrayList<>();
     }
 
+    public void setKdams(ArrayList<Integer> kdams) {
+        this.kdams = kdams;
+    }
+    public ArrayList<Integer> getKdams () {
+        return kdams;
+    }
+    public ArrayList<String> getRegisteredUsers () {
+        return registeredUsers;
+    }
+    public int getFreeSeats () {
+        return registeredUsers.size();
+    }
 
     public Integer getCourseId() {
         return courseId;
