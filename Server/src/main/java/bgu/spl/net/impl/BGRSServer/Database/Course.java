@@ -26,10 +26,24 @@ public class Course {
         return registeredUsers;
     }
     public int getFreeSeats () {
-        return registeredUsers.size();
+        return seats - registeredUsers.size();
     }
 
     public Integer getCourseId() {
         return courseId;
+    }
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public synchronized void register(String studentName) throws Exception {
+        if (registeredUsers.size() == seats){
+            throw new Exception("No available seats at this course. try next semester. course: " + courseName);
+        }
+        registeredUsers.add(studentName);
+    }
+
+    public String getStats() {
+        return courseName + " " + getFreeSeats() + registeredUsers;
     }
 }

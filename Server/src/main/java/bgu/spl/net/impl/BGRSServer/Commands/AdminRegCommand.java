@@ -10,9 +10,9 @@ public class AdminRegCommand implements Command<String> {
         String[] data = arg.split(" ");
         try {
             Database.getInstance().createAdmin(data[0], data[1]);
-            return "12 " + getOpCode();
+            return "12 " + "1";
         } catch (Exception e) {
-            return "13 " + getOpCode();
+            return "13 " + "1";
         }
     }
 

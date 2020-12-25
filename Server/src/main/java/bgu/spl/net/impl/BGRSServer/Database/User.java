@@ -20,8 +20,19 @@ public abstract class User {
     }
 
     public void Logout() throws Exception {
-        if (!loggedIn)
-            throw new Exception("the user: " + userName + " is already logged in");
-
+//        if (!loggedIn)
+//            throw new Exception("the user: " + userName + " is already logged in");
+        loggedIn = false;
     }
+
+    public String getName() {
+        return userName;
+    }
+
+
+    public abstract void registerCourse(Course course) throws Exception;
+
+    public abstract void CourseStats() throws Exception;
+
+    public abstract String getStats();
 }

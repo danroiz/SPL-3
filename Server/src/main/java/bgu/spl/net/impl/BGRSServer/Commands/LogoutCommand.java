@@ -12,10 +12,10 @@ public class LogoutCommand implements Command<String> {
         try{
             User user = Database.getInstance().getUser(data[0]);
             user.Logout();
-            return "12 "+getOpCode();
+            return "12 "+"4";
         }
         catch (Exception e){
-            return "13 " + getOpCode();
+            return "13 " + "4";
         }
     }
     public int getOpCode () {

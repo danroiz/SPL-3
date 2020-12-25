@@ -36,6 +36,9 @@ public class Database {
             throw new Exception("No such username");
         return user;
     }
+    public int getCourseLineNumber (int courseID) {
+        return coursesOrder.get(courseID);
+    }
     public void createAdmin(String username, String password) throws Exception {
         User user = new Admin(username,password);
         if (users.putIfAbsent(username, user) != null)
@@ -46,7 +49,15 @@ public class Database {
         if (users.putIfAbsent(username, user) != null)
             throw new Exception("The username: " + username + " already exists");
     }
-        private static class DatabaseHolder {
+
+    public Course verifyValidCourse(int courseID) throws Exception {
+        Course course = courses.get(courseID);
+        if (course == null)
+            throw new Exception("Course: " + courseID + " does not exist");
+        return course;
+    }
+
+    private static class DatabaseHolder {
         private static Database instance = new Database();
     }
 
@@ -65,6 +76,7 @@ public class Database {
 
 
         List<String> lines;
+
         try {
             lines = Files.readAllLines(Paths.get(coursesFilePath));
         } catch (IOException e) {

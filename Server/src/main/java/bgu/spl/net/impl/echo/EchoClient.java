@@ -6,10 +6,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class EchoClient {
 
     public static void main(String[] args) throws IOException {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1); list.add(6); list.add(2);
+
+        String listString = list.stream().map(Object::toString)
+                .collect(Collectors.joining(", "));
+
+        System.out.println(listString);
 
         if (args.length == 0) {
             args = new String[]{"localhost", "hello"};
