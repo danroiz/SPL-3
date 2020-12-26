@@ -32,7 +32,13 @@ public abstract class User {
 
     public abstract void registerCourse(Course course) throws Exception;
 
-    public abstract void CourseStats() throws Exception;
+    public abstract void courseStats() throws Exception;
 
-    public abstract String getStats();
+    public abstract String getCourses() throws Exception;
+
+    public abstract void statCommand(User checkUser) throws Exception;
+
+    public abstract String isRegistered(int courseID) throws Exception;
+
+    public abstract void unRegisterCourse(Course course) throws Exception;
 }

@@ -46,4 +46,8 @@ public class Course {
     public String getStats() {
         return courseName + " " + getFreeSeats() + registeredUsers;
     }
+
+    public synchronized void unRegister(String username) {
+        registeredUsers.remove(username);
+    }
 }

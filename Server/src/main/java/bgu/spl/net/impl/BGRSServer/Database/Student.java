@@ -3,14 +3,14 @@ package bgu.spl.net.impl.BGRSServer.Database;
 import java.util.*;
 
 public class Student extends User {
-    private TreeMap<Integer,Integer> sortedRegisteredCoursesList; // Key: LineNumber, Value: CourseID
+    private TreeMap<Integer,Integer> sortedRegisteredCoursesTree; // Key: LineNumber, Value: CourseID
     private HashSet<Integer> registeredCoursesSet;
 
 
     public Student(String userName, String password) {
         super(userName, password);
         registeredCoursesSet = new HashSet<>();
-        sortedRegisteredCoursesList = new TreeMap<Integer,Integer>();
+        sortedRegisteredCoursesTree = new TreeMap<Integer,Integer>();
     }
 
     @Override
@@ -22,14 +22,42 @@ public class Student extends User {
     }
 
     @Override
-    public void CourseStats() throws Exception {
+    public void courseStats() throws Exception {
         InvalidCommand("Course Stat");
+    }
+
+    @Override
+    public String getCourses() {
+        return sortedRegisteredCoursesTree.values().toString();
+    }
+
+    @Override
+    public void statCommand(User checkUser) throws Exception {
+        InvalidCommand("Student Stats");
+    }
+
+    @Override
+    public String isRegistered(int courseID) {
+        return (registeredCoursesSet.contains(courseID)?"Registered":"Not Registered");
+    }
+
+    @Override
+    public void unRegisterCourse(Course course) throws Exception {
+        removeCourse(course.getCourseId());
+        course.unRegister(getName());
+    }
+
+    private void removeCourse(Integer courseId) throws Exception {
+        if (!registeredCoursesSet.contains(courseId))
+            throw new Exception("student + " + getName() + " is not registered to " + courseId);
+        registeredCoursesSet.remove(courseId);
+        sortedRegisteredCoursesTree.remove(courseId);
     }
 
     private void addCourse(int courseID) {
         registeredCoursesSet.add(courseID);
         int courseLineNumber = Database.getInstance().getCourseLineNumber(courseID);
-        sortedRegisteredCoursesList.put(courseLineNumber,courseID);
+        sortedRegisteredCoursesTree.put(courseLineNumber,courseID);
     }
     private void verifyNotRegistered(int courseID) throws Exception {
         if (registeredCoursesSet.contains(courseID)){

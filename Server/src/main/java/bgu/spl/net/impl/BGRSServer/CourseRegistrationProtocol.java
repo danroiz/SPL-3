@@ -1,20 +1,39 @@
 package bgu.spl.net.impl.BGRSServer;
 
-import bgu.spl.net.api.Command;
 import bgu.spl.net.api.MessagingProtocol;
+import bgu.spl.net.impl.BGRSServer.Commands.AdminRegCommand;
+import bgu.spl.net.impl.BGRSServer.Commands.Command;
+import bgu.spl.net.impl.BGRSServer.Commands.CommandSupplier;
+import bgu.spl.net.impl.BGRSServer.Commands.LoginCommand;
 import bgu.spl.net.impl.BGRSServer.Database.Course;
 import bgu.spl.net.impl.BGRSServer.Database.Database;
 import bgu.spl.net.impl.BGRSServer.Database.User;
 
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class CourseRegistrationProtocol implements MessagingProtocol<String> {
+public class CourseRegistrationProtocol implements MessagingProtocol<Message> {
     private boolean shouldTerminate = false;
     private User user;
     // map - for each op code - there is a command
+    HashMap<Integer, CommandSupplier> commandSupplierHashMap;
 
+    public CourseRegistrationProtocol(){
+        user = null;
+        commandSupplierHashMap = new HashMap<>();
+        commandSupplierHashMap.put(1, msg -> new AdminRegCommand(user,msg));
+        commandSupplierHashMap.put(3, msg -> new LoginCommand(user,msg));
+
+    }
     @Override
-    public String process(String msg) {
+    public Message process(Message msg) {
+        int opCode = msg.getOpCode();
+        CommandSupplier commandSupplier = commandSupplierHashMap.get(opCode);
+        Command command = commandSupplier.createCommand(msg.getMessage());
+        command.execute();
+
+
+
         int opCode = Integer.parseInt(msg.substring(0,msg.indexOf(' ')));
 //        Command command = codes.get(opCode);
 //
@@ -75,7 +94,7 @@ public class CourseRegistrationProtocol implements MessagingProtocol<String> {
         }
     }
 
-    public String CourseRegister(int courseID){
+    public String courseRegister(int courseID){
         // check if logged in
         try {
             checkLoggedIn();
@@ -96,35 +115,76 @@ public class CourseRegistrationProtocol implements MessagingProtocol<String> {
             Course course = Database.getInstance().verifyValidCourse(courseID); // check if course exist
             String listString = course.getKdams().stream().map(Object::toString)
                     .collect(Collectors.joining(", "));
-            return "12" + "5 " + listString; // check: how to return the course.getKdams
+            return "12" + "6 " + listString; // check: how to return the course.getKdams
         }
         catch (Exception e){
-            return "13" + "5";
+            return "13" + "6";
         }
     }
     public String courseStat(int courseID){
         try {
             checkLoggedIn();
             Course course = Database.getInstance().verifyValidCourse(courseID); // check if course exist
-            user.CourseStats();
-            return "12" + "5 " + course.getStats(); // check: how to return the course.getKdams
+            user.courseStats();
+            return "12" + "7 " + course.getStats(); // check: how to return the course.getKdams
         }
         catch (Exception e){
-            return "13" + "5";
+            return "13" + "7";
         }
     }
     public String studentStat(String username){
         try {
             checkLoggedIn();
             User checkUser = Database.getInstance().getUser(username); // check if the user exists
-            user.StatCommand(checkUser);
-            String userStats =
-            return "12" + "5 " + userStats; // check: how to return the course.getKdams
+            user.statCommand(checkUser); // check if logged in user is an admin
+            String userStats = checkUser.getCourses(); // check if the requested user is a student
+            return "12 " + "8 " + checkUser.getName() + " "+ userStats; // check: how to return the course.getKdams
         }
         catch (Exception e){
-            return "13" + "5";
+            return "13 " + "8";
         }
     }
+
+    public String isRegistered(int courseID){
+        try {
+            checkLoggedIn();
+            String isRegister = user.isRegistered(courseID);
+            return "12" + " 9 " + isRegister; // check: how to return the course.getKdams
+        }
+        catch (Exception e){
+            return "13" + " 9";
+        }
+    }
+
+    public String unRegister(int courseID){
+        try {
+            checkLoggedIn();
+            Course course = Database.getInstance().verifyValidCourse(courseID); // check if course exist
+            user.unRegisterCourse(course);
+            return "12 " + "10";
+
+        }
+        catch (Exception e){
+            return "13 " + "10";
+        }
+    }
+
+    public String myCourses(){
+        try {
+            checkLoggedIn();
+            String userStats = user.getCourses(); // check if the requested user is a student
+            return "12 " + "11 " + userStats; // check: how to return the course.getKdams
+        }
+        catch (Exception e) {
+            return "13 " + "11";
+        }
+    }
+    public String ACK (int opCode, String additionalMsg) {
+        return "12 " + opCode + additionalMsg;
+    }
+
+
+
 
 
 

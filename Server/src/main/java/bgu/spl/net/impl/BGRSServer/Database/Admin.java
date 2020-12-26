@@ -10,14 +10,34 @@ public class Admin extends User {
 
     @Override
     public void registerCourse(Course course) throws Exception {
-        InvalidCommand("Course Register");
+        invalidCommand("Course Register");
     }
 
     @Override
-    public void CourseStats() throws Exception {
+    public void courseStats() throws Exception {
     }
 
-    private void InvalidCommand(String CommandType) throws Exception {
+    @Override
+    public String getCourses() throws Exception {
+        invalidCommand("Admin does not have stats");
+        return null;
+    }
+
+    @Override
+    public void statCommand(User checkUser) { }
+
+    @Override
+    public String isRegistered(int courseID) throws Exception {
+        invalidCommand("Is Registered");
+        return null;
+    }
+
+    @Override
+    public void unRegisterCourse(Course course) throws Exception {
+        invalidCommand("UNREGISTER");
+    }
+
+    private void invalidCommand(String CommandType) throws Exception {
         throw new Exception("Admin can not handle " + CommandType);
     }
 }

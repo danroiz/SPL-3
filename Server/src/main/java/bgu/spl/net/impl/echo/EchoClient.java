@@ -7,18 +7,23 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class EchoClient {
 
     public static void main(String[] args) throws IOException {
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(1); list.add(6); list.add(2);
+        TreeMap<Integer,Integer> sortedRegisteredCoursesList = new TreeMap<>();
+        sortedRegisteredCoursesList.put(4,24);
+        sortedRegisteredCoursesList.put(10,210   );sortedRegisteredCoursesList.put(14,214   );
+        sortedRegisteredCoursesList.put(2,22   );
+        sortedRegisteredCoursesList.put(8,28   );sortedRegisteredCoursesList.put(11,211   );
+        String string = sortedRegisteredCoursesList.toString();
+        String string2 = sortedRegisteredCoursesList.values().toString();
+        List<Integer> list = new ArrayList<>(sortedRegisteredCoursesList.values());
 
-        String listString = list.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
-
-        System.out.println(listString);
+        System.out.println(string2);
 
         if (args.length == 0) {
             args = new String[]{"localhost", "hello"};
