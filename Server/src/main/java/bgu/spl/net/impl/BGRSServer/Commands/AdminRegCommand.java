@@ -5,28 +5,25 @@ import bgu.spl.net.impl.BGRSServer.Database.User;
 import bgu.spl.net.impl.BGRSServer.Message;
 
 public class AdminRegCommand extends Command {
+    private final String opCode = "1";
+    private String username;
+    private String password;
 
     public AdminRegCommand(User user, String[] msg){
-
-    }
-//
-//    @Override
-//    public String execute(String arg) {
-//        String[] data = arg.split(" ");
-//        try {
-//            Database.getInstance().createAdmin(data[0], data[1]);
-//            return "12 " + "1";
-//        } catch (Exception e) {
-//            return "13 " + "1";
-//        }
-//    }
-
-    public int getOpCode() {
-        return 1;
+        super.user = user;
+        username = msg[0];
+        password = msg[1];
     }
 
     @Override
     public Message execute() {
-        return null;
+        try {
+            Database.getInstance().createAdmin(username, password);
+            return new Message(ACK_OP_CODE,new String[]{opCode});
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Message(ERROR_OP_CODE,new String[]{opCode});
+        }
     }
+
 }

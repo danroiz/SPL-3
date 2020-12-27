@@ -1,5 +1,9 @@
 package bgu.spl.net.impl.echo;
 
+import bgu.spl.net.impl.BGRSServer.Database.Admin;
+import bgu.spl.net.impl.BGRSServer.Database.User;
+import bgu.spl.net.impl.BGRSServer.Message;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -14,6 +18,32 @@ import java.util.stream.Collectors;
 public class EchoClient {
 
     public static void main(String[] args) throws IOException {
+
+
+
+
+        class B{
+
+            public Message initUser(User user){
+                user = new Admin("dan","123");
+                return null;
+            }
+        }
+
+        class A{
+            private User user;
+            public void checkB(){
+                B b = new B();
+                b.initUser(user);
+                System.out.println(user.getName());
+            }
+        }
+
+        A a = new A();
+        a.checkB();
+
+        System.out.println("*******************");
+
         TreeMap<Integer,Integer> sortedRegisteredCoursesList = new TreeMap<>();
         sortedRegisteredCoursesList.put(4,24);
         sortedRegisteredCoursesList.put(10,210   );sortedRegisteredCoursesList.put(14,214   );

@@ -1,5 +1,6 @@
 package bgu.spl.net.impl.BGRSServer;
 
+
 public class Message {
     private int opCode;
     private String[] message;
