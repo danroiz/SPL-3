@@ -3,12 +3,12 @@ import bgu.spl.net.impl.BGRSServer.Database.*;
 import bgu.spl.net.impl.BGRSServer.Message;
 
 public class CourseRegCommand extends Command{
-    private final String opCode = "5";
-    private int courseID;
+    private final short opCode = 5;
+    private short courseID;
 
-    public CourseRegCommand(User user, String[] msg) {
+    public CourseRegCommand(User user, Message msg) {
         super.user = user;
-        courseID = Integer.parseInt(msg[0]);
+        courseID = msg.getCourseID();
     }
 
     @Override
@@ -17,12 +17,11 @@ public class CourseRegCommand extends Command{
             checkLoggedIn();
             Course course = Database.getInstance().verifyValidCourse(courseID); // check if course exist
             user.registerCourse(course);
-            return new Message(ACK_OP_CODE,new String[]{opCode});
-
+            return new Message(ACK_OP_CODE,opCode,null);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            return new Message(ERROR_OP_CODE,new String[]{opCode});
+            return new Message(ERROR_OP_CODE,opCode,null);
         }
     }
 }

@@ -4,9 +4,9 @@ import bgu.spl.net.impl.BGRSServer.Database.User;
 import bgu.spl.net.impl.BGRSServer.Message;
 
 public class MyCoursesCommand extends Command{
-    private final String opCode = "11";
+    private final short opCode = 11;
 
-    public MyCoursesCommand(User user, String[] msg) {
+    public MyCoursesCommand(User user, Message msg) {
         super.user = user;
     }
 
@@ -15,11 +15,11 @@ public class MyCoursesCommand extends Command{
         try {
             checkLoggedIn();
             String userStats = user.getCourses(); // check if the requested user is a student
-            return new Message(ACK_OP_CODE,new String[]{opCode,userStats});
+            return new Message(ACK_OP_CODE,opCode,userStats);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            return new Message(ERROR_OP_CODE,new String[]{opCode});
+            return new Message(ERROR_OP_CODE,opCode,null);
         }
     }
 }

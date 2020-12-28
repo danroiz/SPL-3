@@ -29,6 +29,7 @@ public class Database {
     private Database() {
         users = new ConcurrentHashMap<>();
         courses = new HashMap<>();
+        coursesOrder = new HashMap<>();
     }
     public User getUser(String username) throws Exception {
         User user = users.get(username);
@@ -72,7 +73,8 @@ public class Database {
      * loades the courses from the file path specified
      * into the Database, returns true if successful.
      */
-    boolean initialize(String coursesFilePath) { // make sure database is initialized before client can connect to the server
+    // REMOVE THE PUBLIC FROM THIS COMMAND
+    public boolean initialize(String coursesFilePath) { // make sure database is initialized before client can connect to the server
 
 
         List<String> lines;
@@ -80,6 +82,7 @@ public class Database {
         try {
             lines = Files.readAllLines(Paths.get(coursesFilePath));
         } catch (IOException e) {
+            e.getStackTrace();
            return false;
         }
         List<Integer> coursesID = parseToCourses(lines);
@@ -110,6 +113,7 @@ public class Database {
                 coursesID.add(course.getCourseId());
                 lineNumber++;
             } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
         }
@@ -126,7 +130,8 @@ public class Database {
         String[] splitKdams = kdamsText.split(",");
         ArrayList<Integer> kdams = new ArrayList<>();
         for (String splitKdam : splitKdams) {
-            kdams.add(Integer.parseInt(splitKdam));
+            if (!splitKdam.equals(""))
+                kdams.add(Integer.parseInt(splitKdam));
         }
         //parse seats
         int seats = Integer.parseInt(courseInfo[DEFAULT_COURSE_SEATS_POSITION]);

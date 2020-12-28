@@ -38,7 +38,7 @@ public class Student extends User {
 
     @Override
     public String isRegistered(int courseID) {
-        return (registeredCoursesSet.contains(courseID)?"Registered":"Not Registered");
+        return (registeredCoursesSet.contains(courseID)?"REGISTERED":"NOT REGISTERED");
     }
 
     @Override

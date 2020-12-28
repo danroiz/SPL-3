@@ -6,5 +6,5 @@ import bgu.spl.net.impl.BGRSServer.Message;
 import java.util.function.Supplier;
 
 public interface CommandSupplier {
-    public Command createCommand(User user, String[] msg);
+    public Command createCommand(User user, Message msg);
 }
