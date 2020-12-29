@@ -31,20 +31,35 @@ public class Database {
         courses = new HashMap<>();
         coursesOrder = new HashMap<>();
     }
+
+    private static class DatabaseHolder {
+        private static Database instance = new Database();
+    }
+
+    /**
+     * Retrieves the single instance of this class.
+     */
+    public static Database getInstance() {
+        return DatabaseHolder.instance;
+    }
+
     public User getUser(String username) throws Exception {
         User user = users.get(username);
         if (user == null)
             throw new Exception("No such username");
         return user;
     }
+
     public int getCourseLineNumber (int courseID) {
         return coursesOrder.get(courseID);
     }
+
     public void createAdmin(String username, String password) throws Exception {
         User user = new Admin(username,password);
         if (users.putIfAbsent(username, user) != null)
             throw new Exception("The username: " + username + " already exists");
     }
+
     public void createStudent(String username, String password) throws Exception {
         User user = new Student(username,password);
         if (users.putIfAbsent(username, user) != null)
@@ -58,16 +73,6 @@ public class Database {
         return course;
     }
 
-    private static class DatabaseHolder {
-        private static Database instance = new Database();
-    }
-
-    /**
-     * Retrieves the single instance of this class.
-     */
-    public static Database getInstance() {
-        return DatabaseHolder.instance;
-    }
 
     /**
      * loades the courses from the file path specified

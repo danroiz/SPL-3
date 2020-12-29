@@ -1,30 +1,35 @@
 package bgu.spl.net.impl.BGRSServer.Database;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.TreeSet;
 
 public class Course {
     private String courseName;
     private int courseId;
     private ArrayList<Integer> kdams;
     private int seats;
-    private ArrayList<String> registeredUsers;
+    private TreeSet<String> registeredUsers;
 
     public Course(int courseId, String courseName, ArrayList<Integer> kdams, int seats){
         this.courseId = courseId;
         this.courseName = courseName;
         this.kdams = kdams;
         this.seats = seats;
-        registeredUsers = new ArrayList<>();
+        registeredUsers = new TreeSet<>();
     }
 
     public void setKdams(ArrayList<Integer> kdams) {
         this.kdams = kdams;
     }
+
     public ArrayList<Integer> getKdams () {
         return kdams;
     }
-    public ArrayList<String> getRegisteredUsers () {
-        return registeredUsers;
+
+    public String getRegisteredUsers () {
+        return registeredUsers.toString();
     }
+
     public int getFreeSeats () {
         return seats - registeredUsers.size();
     }
@@ -32,6 +37,7 @@ public class Course {
     public Integer getCourseId() {
         return courseId;
     }
+
     public String getCourseName() {
         return courseName;
     }
@@ -44,7 +50,7 @@ public class Course {
     }
 
     public String getStats() {
-        return courseName + " " + getFreeSeats() + registeredUsers;
+        return getCourseName() + "\n" + getFreeSeats() +"\n"+ getRegisteredUsers();
     }
 
     public synchronized void unRegister(String username) {

@@ -10,7 +10,7 @@ public class Student extends User {
     public Student(String userName, String password) {
         super(userName, password);
         registeredCoursesSet = new HashSet<>();
-        sortedRegisteredCoursesTree = new TreeMap<Integer,Integer>();
+        sortedRegisteredCoursesTree = new TreeMap<>();
     }
 
     @Override
@@ -59,18 +59,19 @@ public class Student extends User {
         int courseLineNumber = Database.getInstance().getCourseLineNumber(courseID);
         sortedRegisteredCoursesTree.put(courseLineNumber,courseID);
     }
+
     private void verifyNotRegistered(int courseID) throws Exception {
         if (registeredCoursesSet.contains(courseID)){
             throw new Exception("user " + super.getName() + " is already registered to course "+ courseID);
         }
     }
 
-
     private void checkKdmas(ArrayList<Integer> kdams) throws Exception {
         for (Integer kdam : kdams)
             if (!registeredCoursesSet.contains(kdam))
                 throw new Exception("the student " + super.getName() + " is missing the kdam " + kdam);
     }
+
     private void InvalidCommand(String CommandType) throws Exception {
         throw new Exception("Admin can not handle " + CommandType);
     }
