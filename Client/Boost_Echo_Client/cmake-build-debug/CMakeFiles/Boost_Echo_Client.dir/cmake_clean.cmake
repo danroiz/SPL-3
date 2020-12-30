@@ -1,10 +1,11 @@
 file(REMOVE_RECURSE
-  "Boost_Echo_Client.exe"
-  "Boost_Echo_Client.exe.manifest"
+  "Boost_Echo_Client"
   "Boost_Echo_Client.pdb"
-  "CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.obj"
-  "CMakeFiles/Boost_Echo_Client.dir/src/echoClient.cpp.obj"
-  "libBoost_Echo_Client.dll.a"
+  "CMakeFiles/Boost_Echo_Client.dir/src/BGU_Client.cpp.o"
+  "CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o"
+  "CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o"
+  "CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o"
+  "CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

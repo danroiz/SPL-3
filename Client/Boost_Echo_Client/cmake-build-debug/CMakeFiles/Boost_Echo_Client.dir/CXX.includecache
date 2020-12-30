@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+../include/KeyboardReader.h
+connectionHandler.h
+../include/connectionHandler.h
+map
+-
+
 ../include/connectionHandler.h
 string
 -
@@ -14,13 +20,7 @@ iostream
 boost/asio.hpp
 -
 
-C:/Users/Danro/Documents/Semester_C/SPL/SPL-3/Client/Boost_Echo_Client/src/connectionHandler.cpp
-connectionHandler.h
--
-
-C:/Users/Danro/Documents/Semester_C/SPL/SPL-3/Client/Boost_Echo_Client/src/echoClient.cpp
-stdlib.h
--
-connectionHandler.h
--
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
+KeyboardReader.h
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.h
 

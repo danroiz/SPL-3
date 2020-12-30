@@ -1,3 +1,1 @@
-"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Boost_Echo_Client.dir/objects.a
-C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe cr CMakeFiles\Boost_Echo_Client.dir/objects.a @CMakeFiles\Boost_Echo_Client.dir\objects1.rsp
-C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\Boost_Echo_Client.dir/objects.a -Wl,--no-whole-archive  -o Boost_Echo_Client.exe -Wl,--out-implib,libBoost_Echo_Client.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Boost_Echo_Client.dir\linklibs.rsp
+/usr/bin/c++  -g   CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.o CMakeFiles/Boost_Echo_Client.dir/src/BGU_Client.cpp.o CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o  -o Boost_Echo_Client  -lboost_system -pthread 
