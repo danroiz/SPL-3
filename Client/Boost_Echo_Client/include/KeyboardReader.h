@@ -10,6 +10,7 @@ private:
     ConnectionHandler& connectionHandler;
     map<string, short> opCodesMap;
     void shortToBytes(short num, char* bytesArr);
+    short bytesToShort(char* bytesArr);
 
 public:
     KeyboardReader(ConnectionHandler&);

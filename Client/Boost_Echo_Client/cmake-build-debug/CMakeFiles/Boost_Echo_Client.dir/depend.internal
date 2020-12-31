@@ -6,17 +6,17 @@ CMakeFiles/Boost_Echo_Client.dir/src/BGU_Client.cpp.o
  ../include/Protocol.h
  ../include/SocketReader.h
  ../include/connectionHandler.h
- /home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/BGU_Client.cpp
+ /home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/BGU_Client.cpp
 CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o
  ../include/KeyboardReader.h
  ../include/connectionHandler.h
- /home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
+ /home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
 CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o
  ../include/Protocol.h
- /home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/Protocol.cpp
+ /home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/Protocol.cpp
 CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o
  ../include/SocketReader.h
- /home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/SocketReader.cpp
+ /home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/SocketReader.cpp
 CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.o
  ../include/connectionHandler.h
- /home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/connectionHandler.cpp
+ /home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/connectionHandler.cpp

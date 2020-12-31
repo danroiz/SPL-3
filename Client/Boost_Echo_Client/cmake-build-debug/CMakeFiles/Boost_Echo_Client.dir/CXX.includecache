@@ -20,7 +20,7 @@ iostream
 boost/asio.hpp
 -
 
-/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
+/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
 KeyboardReader.h
-/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.h
+/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.h
 

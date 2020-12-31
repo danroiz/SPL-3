@@ -15,7 +15,6 @@ KeyboardReader::KeyboardReader(ConnectionHandler & connectionHandler): connectio
 void KeyboardReader::operator()() {
     string line;
     while (true) { // add termination condition in connection handler
-        char bytes[2];
         const short bufsize = 1024;
         char buf[bufsize];
 
@@ -25,19 +24,57 @@ void KeyboardReader::operator()() {
         vector<string> input;
         stringstream start(line);
         string word;
-        while (getline(start, word, ' ')) {
+        while (getline(start, word, ' ')) { // creating a vector of the input from keyboard separated by space
             input.push_back(word);
         }
+
+        char opCode_bytes[2];
         short opCode = opCodesMap[input.at(0)];
         cout << "opCode = " << opCode << endl;
-        shortToBytes(opCode,bytes);
-        cout << "CHAR = " << bytes[0] << endl;
+        shortToBytes(opCode,opCode_bytes);
 
-        char const *c = line.c_str();
-        std::vector<char> bytess(input.at(1).begin(), input.at(1).end());
-        bytess.push_back('\0');
-        char *cc = &bytes[0];
-        cout << (c[0] == bytes[0]);
+
+        // in case of OPCODE 1/2/3
+        string username = input.at(1);
+        string password = input.at(2);
+
+        const char* username_bytes = username.c_str();
+        const char* password_bytes = password.c_str();
+
+        char message[2+username.length()+1+password.length()+1];
+        message[0] = opCode_bytes[0];
+        message[1] = opCode_bytes[1];
+        int messageIndex = 2;
+        for (int i = 0; i < username.length(); i++){
+            message[messageIndex] = username_bytes[i];
+            messageIndex++;
+        }
+        message[messageIndex] = '\0';
+        messageIndex++;
+        for (int i = 0; i < password.length(); i++){
+            message[messageIndex] = password_bytes[i];
+            messageIndex++;
+        }
+        message[messageIndex] = '\0';
+        messageIndex++;
+
+        // print it just to check
+        for (int i = 0; i < 2+username.length()+1+password.length()+1; i++){
+            cout << message[i];
+        }
+
+
+        //connectionHandler.sendBytes(message,messageIndex);
+
+
+        short castback = bytesToShort(opCode_bytes);
+        cout << "translated bytes to short, result: " << castback << endl;
+
+//        char const *c = line.c_str();
+//        std::vector<char> bytess(input.at(1).begin(), input.at(1).end());
+//        bytess.push_back('\0');
+//        char *cc = &bytes[0];
+//        cout << (c[0] == bytes[0]);
 
 
 //        stringstream start(line);
@@ -52,10 +89,17 @@ break;
     }
 }
 
-void KeyboardReader::shortToBytes(short num, char *bytesArr) {
+void KeyboardReader::shortToBytes( short num, char *bytesArr) {
     bytesArr[0] = ((num >> 8) & 0xFF);
     bytesArr[1] = (num & 0xFF);
 }
+
+short KeyboardReader::bytesToShort(char *bytesArr) {
+    short result = (short)((bytesArr[0] & 0xff) << 8);
+    result += (short)(bytesArr[1] & 0xff);
+    return result;
+}
+
 
 
 

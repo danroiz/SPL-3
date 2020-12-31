@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/include 
+CXX_INCLUDES = -I/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/include 
 

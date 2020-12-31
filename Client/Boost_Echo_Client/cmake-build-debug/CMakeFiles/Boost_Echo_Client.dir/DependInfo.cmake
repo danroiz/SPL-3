@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/BGU_Client.cpp" "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/BGU_Client.cpp.o"
-  "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp" "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o"
-  "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/Protocol.cpp" "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o"
-  "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/SocketReader.cpp" "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o"
-  "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/connectionHandler.cpp" "/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.o"
+  "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/BGU_Client.cpp" "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/BGU_Client.cpp.o"
+  "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp" "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o"
+  "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/Protocol.cpp" "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o"
+  "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/SocketReader.cpp" "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o"
+  "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/connectionHandler.cpp" "/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
