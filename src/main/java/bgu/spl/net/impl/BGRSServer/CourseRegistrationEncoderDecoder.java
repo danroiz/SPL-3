@@ -78,6 +78,7 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
         commandBytes[0] = (byte)((message.getCommand() >> 8) & 0xFF);
         commandBytes[1] = (byte)(message.getCommand() & 0xFF);
 
+
         boolean hasAdditionalMsg = (message.getAdditionalMsg() != null);
         byte[] additionalBytes = new byte[0];
         if (hasAdditionalMsg)
