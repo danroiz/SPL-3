@@ -25,15 +25,15 @@ int main (int argc, char *argv[]) {
         return 1;
     }
 
-    //Protocol clientProtocol(&connectionHandler);
+    Protocol clientProtocol(connectionHandler);
     KeyboardReader keyboardReader(connectionHandler);
-    //SocketReader socketReader(&connectionHandler, &clientProtocol);
+    SocketReader socketReader(connectionHandler, clientProtocol);
 
     std::thread keyboardThread(std::ref(keyboardReader));
-  //  std::thread socketThread(std::ref(socketReader));
+    std::thread socketThread(std::ref(socketReader));
 
+    socketThread.join();
     keyboardThread.join();
-    //socketThread.join();
 
 
 

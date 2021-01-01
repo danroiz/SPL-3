@@ -56,7 +56,7 @@ public class Student extends User {
         if (!registeredCoursesSet.contains(courseId))
             throw new UnRegisterException("student + " + getName() + " is not registered to " + courseId);
         registeredCoursesSet.remove(courseId);
-        sortedRegisteredCoursesTree.remove(courseId);
+        sortedRegisteredCoursesTree.remove(Database.getInstance().getCourseLineNumber(courseId));
     }
 
     private void addCourse(int courseID) {

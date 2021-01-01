@@ -12,9 +12,12 @@ CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o: ../include/connection
 CMakeFiles/Boost_Echo_Client.dir/src/KeyboardReader.cpp.o: ../src/KeyboardReader.cpp
 
 CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o: ../include/Protocol.h
+CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o: ../include/connectionHandler.h
 CMakeFiles/Boost_Echo_Client.dir/src/Protocol.cpp.o: ../src/Protocol.cpp
 
+CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o: ../include/Protocol.h
 CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o: ../include/SocketReader.h
+CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o: ../include/connectionHandler.h
 CMakeFiles/Boost_Echo_Client.dir/src/SocketReader.cpp.o: ../src/SocketReader.cpp
 
 CMakeFiles/Boost_Echo_Client.dir/src/connectionHandler.cpp.o: ../include/connectionHandler.h

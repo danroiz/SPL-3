@@ -29,18 +29,25 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
     @Override
     public Message decodeNextByte(byte nextByte) {
         Message output = null;
-        if (opCode == -1)
+        if (opCode == -1) {
             opCode = pushShortByte(nextByte);
-        else if ((opCode >= 1) && (opCode <= 3)) {
-            if (username == null)
-                username = pushStringByte(nextByte);
-            else if (password == null)
-                password = pushStringByte(nextByte);
-            else
+            if (opCode == 4 || opCode == 11) {
+                System.out.println("got a logout msg");
                 output = popMessage();
+            }
         }
-        else if (opCode == 4 || opCode == 11)
-            output = popMessage();
+        else if ((opCode >= 1) && (opCode <= 3)) {
+            if (username == null) {
+                username = pushStringByte(nextByte);
+            }
+            else if (password == null) {
+                password = pushStringByte(nextByte);
+            }
+            if (username != null && password != null) {
+                System.out.println("finished decoding the input message");
+                output = popMessage();
+            }
+        }
         else if (opCode == 5 || opCode == 6 || opCode == 7 || opCode == 9 || opCode == 10) {
             courseID = pushShortByte(nextByte);
             if (courseID != -1)
@@ -49,9 +56,10 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
         else if (opCode == 8) {
             if (username == null)
                 username = pushStringByte(nextByte);
-            else
+            if (username != null)
                 output = popMessage();
         }
+      //  System.out.println("Encoder decoder output status: " + output);
         return output; //not a line yet
     }
 
@@ -81,8 +89,10 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
 
         boolean hasAdditionalMsg = (message.getAdditionalMsg() != null);
         byte[] additionalBytes = new byte[0];
-        if (hasAdditionalMsg)
+        if (hasAdditionalMsg) {
             additionalBytes = (message.getAdditionalMsg()).getBytes();
+            System.out.println("I GOT ADDITIONAL MESSAGE");
+        }
 
         boolean isACK = (message.getOpCode() == ACK_OP_CODE);
         byte[] output;

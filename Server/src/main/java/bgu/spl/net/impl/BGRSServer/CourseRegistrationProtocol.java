@@ -23,12 +23,13 @@ public class CourseRegistrationProtocol implements MessagingProtocol<Message> {
         commandSupplierHashMap.put(8, StudentStatCommand::new);
         commandSupplierHashMap.put(9, IsRegisterCommand::new);
         commandSupplierHashMap.put(10, UnRegisterCommand::new);
-        commandSupplierHashMap.put(11, UnRegisterCommand::new);
+        commandSupplierHashMap.put(11, MyCoursesCommand::new);
     }
 
     @Override
     public Message process(Message msg) {
         int opCode = msg.getOpCode();
+        System.out.println("New message arrived " + msg.getOpCode());
         CommandSupplier commandSupplier = commandSupplierHashMap.get(opCode);
         Command command = commandSupplier.createCommand(user, msg);
         Message message = command.execute();

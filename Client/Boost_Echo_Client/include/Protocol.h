@@ -6,8 +6,13 @@
 #define BOOST_ECHO_CLIENT_PROTOCOL_H
 
 
-class Protocol {
+#include "connectionHandler.h"
 
+class Protocol {
+private:
+    ConnectionHandler& connectionHandler;
+public:
+    Protocol(ConnectionHandler&);
 };
 
 

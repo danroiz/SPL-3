@@ -12,6 +12,16 @@ connectionHandler.h
 map
 -
 
+../include/Protocol.h
+connectionHandler.h
+../include/connectionHandler.h
+
+../include/SocketReader.h
+connectionHandler.h
+../include/connectionHandler.h
+Protocol.h
+../include/Protocol.h
+
 ../include/connectionHandler.h
 string
 -
@@ -20,7 +30,25 @@ iostream
 boost/asio.hpp
 -
 
-/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/BGU_Client.cpp
+stdlib.h
+-
+connectionHandler.h
+-
+thread
+-
+Protocol.h
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/Protocol.h
 KeyboardReader.h
-/home/spl211/Desktop/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.h
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.h
+SocketReader.h
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/SocketReader.h
+
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.cpp
+KeyboardReader.h
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/KeyboardReader.h
+
+/home/dorei/Projects/SPL-3/Client/Boost_Echo_Client/src/connectionHandler.cpp
+connectionHandler.h
+-
 

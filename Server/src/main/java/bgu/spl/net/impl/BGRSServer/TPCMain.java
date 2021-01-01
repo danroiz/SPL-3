@@ -13,7 +13,7 @@ public class TPCMain {
          * fix encoding of ERR (not need \0 at the end)
          */
 
-        boolean succ = Database.getInstance().initialize("C:\\Users\\Danro\\Documents\\Semester_C\\SPL\\SPL-3\\Server\\Courses.txt");  //one shared object
+        boolean succ = Database.getInstance().initialize("Courses.txt");  //one shared object
         System.out.println("Initialize database: " + succ);
 
 // you can use any server...

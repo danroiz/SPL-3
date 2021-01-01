@@ -3,3 +3,6 @@
 //
 
 #include "Protocol.h"
+
+Protocol::Protocol(ConnectionHandler &connectionHandler) : connectionHandler(connectionHandler) {}
+
