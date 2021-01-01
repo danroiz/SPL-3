@@ -1,5 +1,10 @@
 package bgu.spl.net.impl.BGRSServer.Database;
 
+import bgu.spl.net.impl.BGRSServer.Exceptions.CourseFullException;
+import bgu.spl.net.impl.BGRSServer.Exceptions.NotAuthorizedException;
+import bgu.spl.net.impl.BGRSServer.Exceptions.RegisterException;
+import bgu.spl.net.impl.BGRSServer.Exceptions.UnRegisterException;
+
 import java.util.*;
 
 public class Student extends User {
@@ -14,7 +19,7 @@ public class Student extends User {
     }
 
     @Override
-    public void registerCourse(Course course) throws Exception {
+    public void registerCourse(Course course) throws CourseFullException, RegisterException {
         verifyNotRegistered(course.getCourseId());
         checkKdmas(course.getKdams()); // check if the student have all the kdams for the course
         course.register(getName()); // add the student to the course students list
@@ -22,7 +27,7 @@ public class Student extends User {
     }
 
     @Override
-    public void courseStats() throws Exception {
+    public void courseStats() throws NotAuthorizedException {
         InvalidCommand("Course Stat");
     }
 
@@ -32,7 +37,7 @@ public class Student extends User {
     }
 
     @Override
-    public void statCommand(User checkUser) throws Exception {
+    public void statCommand(User checkUser) throws NotAuthorizedException {
         InvalidCommand("Student Stats");
     }
 
@@ -42,14 +47,14 @@ public class Student extends User {
     }
 
     @Override
-    public void unRegisterCourse(Course course) throws Exception {
+    public void unRegisterCourse(Course course) throws UnRegisterException {
         removeCourse(course.getCourseId());
         course.unRegister(getName());
     }
 
-    private void removeCourse(Integer courseId) throws Exception {
+    private void removeCourse(Integer courseId) throws UnRegisterException {
         if (!registeredCoursesSet.contains(courseId))
-            throw new Exception("student + " + getName() + " is not registered to " + courseId);
+            throw new UnRegisterException("student + " + getName() + " is not registered to " + courseId);
         registeredCoursesSet.remove(courseId);
         sortedRegisteredCoursesTree.remove(courseId);
     }
@@ -60,19 +65,19 @@ public class Student extends User {
         sortedRegisteredCoursesTree.put(courseLineNumber,courseID);
     }
 
-    private void verifyNotRegistered(int courseID) throws Exception {
+    private void verifyNotRegistered(int courseID) throws RegisterException {
         if (registeredCoursesSet.contains(courseID)){
-            throw new Exception("user " + super.getName() + " is already registered to course "+ courseID);
+            throw new RegisterException("user " + super.getName() + " is already registered to course "+ courseID);
         }
     }
 
-    private void checkKdmas(ArrayList<Integer> kdams) throws Exception {
+    private void checkKdmas(ArrayList<Integer> kdams) throws RegisterException {
         for (Integer kdam : kdams)
             if (!registeredCoursesSet.contains(kdam))
-                throw new Exception("the student " + super.getName() + " is missing the kdam " + kdam);
+                throw new RegisterException("the student " + super.getName() + " is missing the kdam " + kdam);
     }
 
-    private void InvalidCommand(String CommandType) throws Exception {
-        throw new Exception("Admin can not handle " + CommandType);
+    private void InvalidCommand(String CommandType) throws NotAuthorizedException {
+        throw new NotAuthorizedException("Student can not handle " + CommandType);
     }
 }

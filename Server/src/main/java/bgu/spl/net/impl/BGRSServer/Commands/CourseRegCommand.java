@@ -1,9 +1,10 @@
 package bgu.spl.net.impl.BGRSServer.Commands;
 import bgu.spl.net.impl.BGRSServer.Database.*;
+import bgu.spl.net.impl.BGRSServer.Exceptions.*;
 import bgu.spl.net.impl.BGRSServer.Message;
 
 public class CourseRegCommand extends Command{
-    private final short opCode = 5;
+    private static final short opCode = 5;
     private short courseID;
 
     public CourseRegCommand(User user, Message msg) {
@@ -17,11 +18,11 @@ public class CourseRegCommand extends Command{
             checkLoggedIn();
             Course course = Database.getInstance().verifyValidCourse(courseID); // check if course exist
             user.registerCourse(course);
-            return new Message(ACK_OP_CODE,opCode,null);
+            return new Message(ACK_OP_CODE,opCode);
         }
-        catch (Exception e){
+        catch (InvalidCourseException | NotLoggedException | NotAuthorizedException | RegisterException | CourseFullException e){
             System.out.println(e.getMessage());
-            return new Message(ERROR_OP_CODE,opCode,null);
+            return new Message(ERROR_OP_CODE,opCode);
         }
     }
 }

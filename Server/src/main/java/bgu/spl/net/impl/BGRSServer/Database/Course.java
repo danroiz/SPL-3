@@ -1,4 +1,6 @@
 package bgu.spl.net.impl.BGRSServer.Database;
+import bgu.spl.net.impl.BGRSServer.Exceptions.CourseFullException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeSet;
@@ -42,9 +44,9 @@ public class Course {
         return courseName;
     }
 
-    public synchronized void register(String studentName) throws Exception {
+    public synchronized void register(String studentName) throws CourseFullException {
         if (registeredUsers.size() == seats){
-            throw new Exception("No available seats at this course. try next semester. course: " + courseName);
+            throw new CourseFullException("No available seats at this course. try next semester. course: " + courseName);
         }
         registeredUsers.add(studentName);
     }

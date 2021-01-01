@@ -1,5 +1,6 @@
 package bgu.spl.net.impl.BGRSServer;
 
+import bgu.spl.net.api.Command;
 import bgu.spl.net.api.MessageEncoderDecoder;
 
 
@@ -11,6 +12,7 @@ import java.util.Arrays;
 
 public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<Message> {
 
+    private static final short ACK_OP_CODE = 12;
     private byte[] shortByte = new byte[2];
     private byte[] stringByte = new byte[1 << 10];
 
@@ -68,22 +70,43 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
 
     @Override
     public byte[] encode(Message message) {
-        byte[] opCodeBytes = (ByteBuffer.allocate(2).putShort(message.getOpCode())).array();
-        byte[] commandBytes = (ByteBuffer.allocate(2).putShort(message.getCommand())).array();
-        byte[] additionalBytes = (message.getAdditionalMsg()).getBytes();
-        byte[] output = new byte[opCodeBytes.length+commandBytes.length+additionalBytes.length+1];
+        byte[] opCodeBytes = new byte[2];
+        opCodeBytes[0] = (byte)((message.getOpCode() >> 8) & 0xFF);
+        opCodeBytes[1] = (byte)(message.getOpCode() & 0xFF);
+
+        byte[] commandBytes = new byte[2];
+        commandBytes[0] = (byte)((message.getCommand() >> 8) & 0xFF);
+        commandBytes[1] = (byte)(message.getCommand() & 0xFF);
+
+
+        boolean hasAdditionalMsg = (message.getAdditionalMsg() != null);
+        byte[] additionalBytes = new byte[0];
+        if (hasAdditionalMsg)
+            additionalBytes = (message.getAdditionalMsg()).getBytes();
+
+        boolean isACK = (message.getOpCode() == ACK_OP_CODE);
+        byte[] output;
+        if (isACK)
+            output = new byte[opCodeBytes.length+commandBytes.length+additionalBytes.length+1];
+        else // ERR Message
+            output = new byte[opCodeBytes.length+commandBytes.length];
+
         int index = 0;
         for (byte opCodeByte : opCodeBytes) output[index++] = opCodeByte;
         for (byte commandByte : commandBytes) output[index++] = commandByte;
-        for (byte additionalByte : additionalBytes) output[index++] = additionalByte;
-        output[output.length-1] = '\0';
+
+        if (isACK) {
+            for (byte additionalByte : additionalBytes) output[index++] = additionalByte;
+            output[output.length-1] = '\0';
+        }
         return output;
     }
 
     private short pushShortByte(byte nextByte) {
         shortByte[shortByteLen++] = nextByte;
         if (shortByteLen == 2) {
-            short result = ByteBuffer.wrap(shortByte).getShort();
+            short result = (short)((shortByte[0] & 0xff) << 8);
+            result += (short)(shortByte[1] & 0xff);
             shortByteLen = 0;
             return result;
         }

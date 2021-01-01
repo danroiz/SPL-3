@@ -1,5 +1,9 @@
 package bgu.spl.net.impl.BGRSServer.Database;
 
+import bgu.spl.net.impl.BGRSServer.Exceptions.AmbiguousUsernameException;
+import bgu.spl.net.impl.BGRSServer.Exceptions.InvalidCourseException;
+import bgu.spl.net.impl.BGRSServer.Exceptions.UserNotExistException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,10 +20,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Database {
 
-    private final int DEFAULT_COURSE_ID_POSITION = 0;
-    private final int DEFAULT_COURSE_NAME_POSITION = 1;
-    private final int DEFAULT_COURSE_KDAMS_POSITION = 2;
-    private final int DEFAULT_COURSE_SEATS_POSITION = 3;
+    private static final int DEFAULT_COURSE_ID_POSITION = 0;
+    private static final int DEFAULT_COURSE_NAME_POSITION = 1;
+    private static final int DEFAULT_COURSE_KDAMS_POSITION = 2;
+    private static final int DEFAULT_COURSE_SEATS_POSITION = 3;
 
     private HashMap<Integer, Integer> coursesOrder;
     private ConcurrentHashMap<String,User> users;
@@ -43,10 +47,10 @@ public class Database {
         return DatabaseHolder.instance;
     }
 
-    public User getUser(String username) throws Exception {
+    public User getUser(String username) throws UserNotExistException {
         User user = users.get(username);
         if (user == null)
-            throw new Exception("No such username");
+            throw new UserNotExistException("No such username");
         return user;
     }
 
@@ -54,22 +58,22 @@ public class Database {
         return coursesOrder.get(courseID);
     }
 
-    public void createAdmin(String username, String password) throws Exception {
+    public void createAdmin(String username, String password) throws AmbiguousUsernameException {
         User user = new Admin(username,password);
         if (users.putIfAbsent(username, user) != null)
-            throw new Exception("The username: " + username + " already exists");
+            throw new AmbiguousUsernameException("The username: " + username + " already exists");
     }
 
-    public void createStudent(String username, String password) throws Exception {
+    public void createStudent(String username, String password) throws AmbiguousUsernameException {
         User user = new Student(username,password);
         if (users.putIfAbsent(username, user) != null)
-            throw new Exception("The username: " + username + " already exists");
+            throw new AmbiguousUsernameException("The username: " + username + " already exists");
     }
 
-    public Course verifyValidCourse(int courseID) throws Exception {
+    public Course verifyValidCourse(int courseID) throws InvalidCourseException {
         Course course = courses.get(courseID);
         if (course == null)
-            throw new Exception("Course: " + courseID + " does not exist");
+            throw new InvalidCourseException("Course: " + courseID + " does not exist");
         return course;
     }
 

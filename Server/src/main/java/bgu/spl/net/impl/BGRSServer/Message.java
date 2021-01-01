@@ -12,7 +12,12 @@ public class Message {
     public Message (short opCode, short command,String additionalMsg) {
         this.opCode = opCode;
         this.command = command;
-        this.additionalMsg = additionalMsg;
+        this.additionalMsg = "\n"+additionalMsg;
+    }
+
+    public Message (short opCode, short command) {
+        this.opCode = opCode;
+        this.command = command;
     }
 
     public Message(short opCode, String username, String password, short courseID) {
