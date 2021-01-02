@@ -2,22 +2,22 @@ package bgu.spl.net.impl.BGRSServer.Database;
 import bgu.spl.net.impl.BGRSServer.Exceptions.CourseFullException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Course {
     private String courseName;
     private int courseId;
     private ArrayList<Integer> kdams;
     private int seats;
-    private TreeSet<String> registeredUsers;
+    private ConcurrentSkipListSet<String> registeredUsers;
 
     public Course(int courseId, String courseName, ArrayList<Integer> kdams, int seats){
         this.courseId = courseId;
         this.courseName = courseName;
         this.kdams = kdams;
         this.seats = seats;
-        registeredUsers = new TreeSet<>();
+        registeredUsers = new ConcurrentSkipListSet<>();
     }
 
     public void setKdams(ArrayList<Integer> kdams) {
@@ -28,10 +28,12 @@ public class Course {
         return kdams;
     }
 
+    // consider to be synco
     public String getRegisteredUsers () {
         return registeredUsers.toString();
     }
 
+    // consider to be synco
     public int getFreeSeats () {
         return seats - registeredUsers.size();
     }

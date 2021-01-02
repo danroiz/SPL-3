@@ -30,7 +30,10 @@ void KeyboardReader::operator()() {
 
         // translate short to byte array
         char opCodeBytes[2];
+        if (opCodesMap.find(input.at(0)) == opCodesMap.end())
+            continue;
         short opCode = opCodesMap[input.at(0)];
+
         shortToBytes(opCode,opCodeBytes);
 
         if (opCode >= 1 && opCode <= 3) {
@@ -98,6 +101,7 @@ void KeyboardReader::operator()() {
             }
             message[messageIndex] = '\0';
             messageIndex++;
+
             connectionHandler.sendBytes(message, messageIndex);
 
         }
@@ -109,11 +113,6 @@ void KeyboardReader::shortToBytes( short num, char *bytesArr) {
     bytesArr[1] = (num & 0xFF);
 }
 
-short KeyboardReader::bytesToShort(char *bytesArr) {
-    short result = (short)((bytesArr[0] & 0xff) << 8);
-    result += (short)(bytesArr[1] & 0xff);
-    return result;
-}
 
 
 

@@ -25,9 +25,9 @@ public class Database {
     private static final int DEFAULT_COURSE_KDAMS_POSITION = 2;
     private static final int DEFAULT_COURSE_SEATS_POSITION = 3;
 
-    private HashMap<Integer, Integer> coursesOrder;
     private ConcurrentHashMap<String,User> users;
     private HashMap<Integer,Course> courses;
+    private HashMap<Integer, Integer> coursesOrder;
 
     //to prevent user from creating new Database
     private Database() {
@@ -36,6 +36,7 @@ public class Database {
         coursesOrder = new HashMap<>();
     }
 
+    // ask in forum if can add databaseholder
     private static class DatabaseHolder {
         private static Database instance = new Database();
     }
@@ -82,7 +83,7 @@ public class Database {
      * loades the courses from the file path specified
      * into the Database, returns true if successful.
      */
-    // REMOVE THE PUBLIC FROM THIS COMMAND
+    // ask if can add the public instead of packageprivate
     public boolean initialize(String coursesFilePath) { // make sure database is initialized before client can connect to the server
 
 

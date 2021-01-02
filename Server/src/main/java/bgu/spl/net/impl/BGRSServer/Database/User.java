@@ -15,7 +15,7 @@ public abstract class User {
         loggedIn = false;
     }
 
-    public void LogIn(String password) throws UserLoginException {
+    public synchronized void LogIn(String password) throws UserLoginException {
         if (loggedIn)
             throw new UserLoginException("miss chang already logged in");
         if (!this.password.equals(password))
@@ -23,10 +23,7 @@ public abstract class User {
         loggedIn = true;
     }
 
-    public void Logout()  {
-        // in comment cause already checking in the command
-//        if (!loggedIn)
-//            throw new NotLoggedException("no user is logged in");
+    public synchronized void Logout()  {
         loggedIn = false;
     }
 
