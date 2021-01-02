@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/Client_2.dir/src/BGU_Client.cpp.o CMakeFiles/Client_2.dir/src/connectionHandler.cpp.o CMakeFiles/Client_2.dir/src/KeyboardReader.cpp.o CMakeFiles/Client_2.dir/src/Protocol.cpp.o CMakeFiles/Client_2.dir/src/SocketReader.cpp.o -o Client_2  -lboost_system -pthread 

@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/KeyboardReader.h
+connectionHandler.h
+../include/connectionHandler.h
+unordered_map
+-
+
+../include/SocketReader.h
+connectionHandler.h
+../include/connectionHandler.h
+
+../include/connectionHandler.h
+string
+-
+iostream
+-
+boost/asio.hpp
+-
+
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/BGU_Client.cpp
+stdlib.h
+-
+connectionHandler.h
+-
+thread
+-
+KeyboardReader.h
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/KeyboardReader.h
+SocketReader.h
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/SocketReader.h
+
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/KeyboardReader.cpp
+KeyboardReader.h
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/KeyboardReader.h
+
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/SocketReader.cpp
+SocketReader.h
+/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/src/SocketReader.h
+

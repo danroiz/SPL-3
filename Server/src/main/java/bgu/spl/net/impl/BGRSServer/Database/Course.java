@@ -30,12 +30,15 @@ public class Course {
 
     // consider to be synco
     public String getRegisteredUsers () {
-        return registeredUsers.toString();
+        return registeredUsers.toString().replaceAll("\\s", "");
     }
 
     // consider to be synco
     public int getFreeSeats () {
         return seats - registeredUsers.size();
+    }
+    public int getTotalSeats () {
+        return seats;
     }
 
     public Integer getCourseId() {
@@ -54,7 +57,7 @@ public class Course {
     }
 
     public String getStats() {
-        return getCourseName() + "\n" + getFreeSeats() +"\n"+ getRegisteredUsers();
+        return "Course: (" + courseId + ") " + getCourseName() + "\n" + "Seats Available: " + getFreeSeats() + "/" + getTotalSeats() +"\n"+ "Students Registered: " + getRegisteredUsers();
     }
 
     public synchronized void unRegister(String username) {

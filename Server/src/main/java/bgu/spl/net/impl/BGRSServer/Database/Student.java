@@ -33,7 +33,7 @@ public class Student extends User {
 
     @Override
     public String getCourses() {
-        return sortedRegisteredCoursesTree.values().toString();
+        return sortedRegisteredCoursesTree.values().toString().replaceAll("\\s", "");
     }
 
     @Override

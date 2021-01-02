@@ -23,7 +23,7 @@ public class StudentStatCommand extends Command{
             User checkUser = Database.getInstance().getUser(username); // check if the user exists
             user.statCommand(checkUser); // check if logged in user is an admin
             String userStats = checkUser.getCourses(); // check if the requested user is a student
-            return new Message(ACK_OP_CODE,opCode,checkUser.getName()+"\n"+userStats);
+            return new Message(ACK_OP_CODE,opCode,"Student: " + checkUser.getName() + "\n" + "Courses: " + userStats);
         }
         catch (UserNotExistException | NotLoggedException | NotAuthorizedException e) {
             System.out.println(e.getMessage());

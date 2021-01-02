@@ -32,7 +32,6 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
         if (opCode == -1) {
             opCode = pushShortByte(nextByte);
             if (opCode == 4 || opCode == 11) {
-                System.out.println("got a logout msg");
                 output = popMessage();
             }
         }
@@ -44,7 +43,6 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
                 password = pushStringByte(nextByte);
             }
             if (username != null && password != null) {
-                System.out.println("finished decoding the input message");
                 output = popMessage();
             }
         }

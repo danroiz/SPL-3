@@ -43,6 +43,7 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
                     }
                 }
             }
+            System.out.println("we lost a thread " + Thread.currentThread());
 
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -24,6 +24,7 @@ public class Database {
     private static final int DEFAULT_COURSE_NAME_POSITION = 1;
     private static final int DEFAULT_COURSE_KDAMS_POSITION = 2;
     private static final int DEFAULT_COURSE_SEATS_POSITION = 3;
+    private static final String DEFAULT_COURSES_PATH = "Courses.txt";
 
     private ConcurrentHashMap<String,User> users;
     private HashMap<Integer,Course> courses;
@@ -34,6 +35,7 @@ public class Database {
         users = new ConcurrentHashMap<>();
         courses = new HashMap<>();
         coursesOrder = new HashMap<>();
+        initialize(DEFAULT_COURSES_PATH);
     }
 
     // ask in forum if can add databaseholder
@@ -84,7 +86,7 @@ public class Database {
      * into the Database, returns true if successful.
      */
     // ask if can add the public instead of packageprivate
-    public boolean initialize(String coursesFilePath) { // make sure database is initialized before client can connect to the server
+    boolean initialize(String coursesFilePath) { // make sure database is initialized before client can connect to the server
 
 
         List<String> lines;
@@ -99,7 +101,6 @@ public class Database {
         boolean success = (coursesID != null);
         if (success)
             sortKdams(coursesID);
-
         return success;
     }
 
