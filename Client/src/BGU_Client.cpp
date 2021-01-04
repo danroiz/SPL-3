@@ -4,9 +4,6 @@
 #include "KeyboardReader.h"
 #include "SocketReader.h"
 
-/**
-* This code assumes that the server replies the exact text the client sent it (as opposed to the practical session example)
-*/
 using namespace std;
 
 int main (int argc, char *argv[]) {
@@ -31,5 +28,5 @@ int main (int argc, char *argv[]) {
     std::thread socketThread(std::ref(socketReader));
 
     socketThread.join();
-    exit(0);
+    keyboardThread.join();
 }

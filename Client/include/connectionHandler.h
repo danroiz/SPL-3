@@ -14,11 +14,9 @@ private:
 	boost::asio::io_service io_service_;   // Provides core I/O functionality
 	tcp::socket socket_;
 
- 
 public:
-    bool terminate1;
-    bool terminate2;
-    ConnectionHandler(std::string host, short port);
+    bool shouldTerminate;
+    ConnectionHandler(std::string &host, short port);
     virtual ~ConnectionHandler();
  
     // Connect to the remote machine

@@ -4,11 +4,10 @@
 
 #include "SocketReader.h"
 using namespace std;
-SocketReader::SocketReader(ConnectionHandler &connectionHandler) : connectionHandler(connectionHandler) {}
+SocketReader::SocketReader(ConnectionHandler &connectionHandler) : connectionHandler(connectionHandler), shouldTerminate(false) {}
 
 void SocketReader::operator()()  {
-//    while(!protocol->isSocketTermination()){
-    while (!connectionHandler.terminate2) {
+    while (!connectionHandler.shouldTerminate) {
         char opCodeBytes[4];
         short opCode= -1;
         short command = -1;
@@ -19,22 +18,17 @@ void SocketReader::operator()()  {
             command = bytesToShort(&opCodeBytes[2]);
         }
         if (opCode == 12) {
-            if (command == 4)
-                connectionHandler.terminate2 = true;
+            if (command == 4) // received ACK for Logout Command
+                connectionHandler.shouldTerminate = true;
+
             commandStatus = "ACK ";
             connectionHandler.getLine(line);
         }
-        else {
-            connectionHandler.terminate1 = false;
+        else
             commandStatus = "ERROR ";
-        }
         cout << commandStatus << command << line << endl;
     }
 }
-
-
-
-
 
 short SocketReader::bytesToShort(char *bytesArr) {
     short result = (short)((bytesArr[0] & 0xff) << 8);

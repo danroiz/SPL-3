@@ -1,5 +1,5 @@
 #include <connectionHandler.h>
- 
+
 using boost::asio::ip::tcp;
 
 using std::cin;
@@ -8,7 +8,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), terminate1(0), terminate2(0) {}
+ConnectionHandler::ConnectionHandler(string &host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), shouldTerminate(false) {}
     
 ConnectionHandler::~ConnectionHandler() {
     close();
@@ -91,7 +91,6 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
     }
     return true;
 }
- 
  
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
 	bool result=sendBytes(frame.c_str(),frame.length());

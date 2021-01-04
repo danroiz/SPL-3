@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/BGU_Client.cpp" "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/BGU_Client.cpp.o"
-  "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/KeyboardReader.cpp" "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/KeyboardReader.cpp.o"
-  "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/SocketReader.cpp" "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/SocketReader.cpp.o"
-  "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/connectionHandler.cpp" "/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/connectionHandler.cpp.o"
+  "/home/dorei/Projects/SPL-3/Client/src/BGU_Client.cpp" "/home/dorei/Projects/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/BGU_Client.cpp.o"
+  "/home/dorei/Projects/SPL-3/Client/src/KeyboardReader.cpp" "/home/dorei/Projects/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/KeyboardReader.cpp.o"
+  "/home/dorei/Projects/SPL-3/Client/src/SocketReader.cpp" "/home/dorei/Projects/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/SocketReader.cpp.o"
+  "/home/dorei/Projects/SPL-3/Client/src/connectionHandler.cpp" "/home/dorei/Projects/SPL-3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/connectionHandler.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

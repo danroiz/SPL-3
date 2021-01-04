@@ -11,8 +11,12 @@
 class SocketReader {
 private:
     ConnectionHandler& connectionHandler;
+    bool shouldTerminate;
 public:
     SocketReader(ConnectionHandler&);
+    ~SocketReader()= default;
+    SocketReader(const SocketReader&)= default;
+    SocketReader &operator=(const SocketReader&)= default;
     void operator()();
     short bytesToShort(char *bytesArr);
 

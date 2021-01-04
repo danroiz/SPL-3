@@ -24,7 +24,7 @@ iostream
 boost/asio.hpp
 -
 
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/BGU_Client.cpp
+/home/dorei/Projects/SPL-3/Client/src/BGU_Client.cpp
 stdlib.h
 -
 connectionHandler.h
@@ -32,11 +32,7 @@ connectionHandler.h
 thread
 -
 KeyboardReader.h
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/KeyboardReader.h
+/home/dorei/Projects/SPL-3/Client/src/KeyboardReader.h
 SocketReader.h
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/SocketReader.h
-
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/KeyboardReader.cpp
-KeyboardReader.h
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/KeyboardReader.h
+/home/dorei/Projects/SPL-3/Client/src/SocketReader.h
 

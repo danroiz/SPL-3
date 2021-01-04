@@ -10,11 +10,15 @@ private:
     ConnectionHandler& connectionHandler;
     unordered_map<string, short> opCodesMap;
     void shortToBytes(short num, char* bytesArr);
+    int copyBytesArray(char *toArray , const char *fromArray, int to_begin, size_t from_length);
 
 public:
     KeyboardReader(ConnectionHandler&);
-    void operator()();
+    ~KeyboardReader()= default;
+    KeyboardReader(const KeyboardReader&)= default;
+    KeyboardReader &operator=(const KeyboardReader&)= default;
 
+    void operator()();
 };
 
 
