@@ -1,5 +1,4 @@
 package bgu.spl.net.impl.BGRSServer;
-
 import bgu.spl.net.srv.Server;
 
 public class ReactorMain {
@@ -13,5 +12,4 @@ public class ReactorMain {
                 CourseRegistrationEncoderDecoder::new //message encoder decoder factory
         ).serve();
     }
-
 }

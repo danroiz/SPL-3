@@ -1,5 +1,4 @@
 package bgu.spl.net.impl.BGRSServer;
-
 import bgu.spl.net.api.MessagingProtocol;
 import bgu.spl.net.impl.BGRSServer.Commands.*;
 import bgu.spl.net.impl.BGRSServer.Database.User;
@@ -7,11 +6,16 @@ import java.util.HashMap;
 
 
 public class CourseRegistrationProtocol implements MessagingProtocol<Message> {
-    private boolean shouldTerminate = false;
+    private boolean shouldTerminate;
     private User user;
-    HashMap<Integer, CommandSupplier> commandSupplierHashMap;
+    HashMap<Integer, CommandSupplier> commandSupplierHashMap; // given an opcode returns matching command
 
+    /**
+     * Constructor
+     */
     public CourseRegistrationProtocol() {
+        shouldTerminate = false;
+        user = null;
         commandSupplierHashMap = new HashMap<>();
         commandSupplierHashMap.put(1, AdminRegCommand::new);
         commandSupplierHashMap.put(2, StudentRegCommand::new);
@@ -29,7 +33,6 @@ public class CourseRegistrationProtocol implements MessagingProtocol<Message> {
     @Override
     public Message process(Message msg) {
         int opCode = msg.getOpCode();
-     //   System.out.println("New message arrived " + msg.getOpCode());
         CommandSupplier commandSupplier = commandSupplierHashMap.get(opCode);
         Command command = commandSupplier.createCommand(user, msg);
         Message message = command.execute();
@@ -42,11 +45,18 @@ public class CourseRegistrationProtocol implements MessagingProtocol<Message> {
         return shouldTerminate;
     }
 
+    /**
+     * if the command changed the logged condition
+     * from logged in to logged out
+     * or from logged out to logged in
+     * update user field
+     * @param command - the executed command
+     */
     private void checkChangedLoggedCondition(Command command) {
-        if (command.getUser() != user) {
-            if (user != null)
+        if (command.getUser() != user) { // changed user state
+            if (user != null) // logged in to logged out
                 shouldTerminate = true;
-            user = command.getUser();
+            user = command.getUser(); // update state
         }
     }
 }
