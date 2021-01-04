@@ -76,7 +76,7 @@ public class Student extends User {
     }
 
     @Override
-    public void statCommand(User checkUser) throws NotAuthorizedException {
+    public void studentStats(User checkUser) throws NotAuthorizedException {
         InvalidCommand("Student Stats");
     }
 

@@ -14,7 +14,7 @@ public class Admin extends User {
     public void courseStats(){}
 
     @Override
-    public void statCommand(User checkUser) {}
+    public void studentStats(User checkUser) {}
 
     @Override
     public void registerCourse(Course course) throws NotAuthorizedException {

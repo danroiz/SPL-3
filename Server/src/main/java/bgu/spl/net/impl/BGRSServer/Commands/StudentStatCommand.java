@@ -23,7 +23,7 @@ public class StudentStatCommand extends Command{
         try {
             checkLoggedIn();
             User checkUser = Database.getInstance().getUser(username); // check if the user exists
-            user.statCommand(checkUser);
+            user.studentStats(checkUser);
             String userStats = checkUser.getCourses();
             return new Message(ACK_OP_CODE,opCode,"Student: " + checkUser.getName() + "\n" + "Courses: " + userStats);
         }

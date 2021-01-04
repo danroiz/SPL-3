@@ -63,7 +63,7 @@ public abstract class User {
      * @param checkUser the user to get stats from
      * @throws NotAuthorizedException - @this user not authorized to check user stats
      */
-    public abstract void statCommand(User checkUser) throws NotAuthorizedException;
+    public abstract void studentStats(User checkUser) throws NotAuthorizedException;
 
     /**
      * check if user is registered to course
