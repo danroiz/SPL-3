@@ -1,13 +1,14 @@
 package bgu.spl.net.impl.BGRSServer.Database;
-
 import bgu.spl.net.impl.BGRSServer.Exceptions.AmbiguousUsernameException;
 import bgu.spl.net.impl.BGRSServer.Exceptions.InvalidCourseException;
 import bgu.spl.net.impl.BGRSServer.Exceptions.UserNotExistException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -24,13 +25,15 @@ public class Database {
     private static final int DEFAULT_COURSE_NAME_POSITION = 1;
     private static final int DEFAULT_COURSE_KDAMS_POSITION = 2;
     private static final int DEFAULT_COURSE_SEATS_POSITION = 3;
-    private static final String DEFAULT_COURSES_PATH = "Courses.txt";
+    private static final String DEFAULT_COURSES_PATH = "./Courses.txt";
 
-    private ConcurrentHashMap<String,User> users;
-    private HashMap<Integer,Course> courses;
-    private HashMap<Integer, Integer> coursesOrder;
+    private final ConcurrentHashMap<String,User> users;
+    private final HashMap<Integer,Course> courses;
+    private final HashMap<Integer, Integer> coursesOrder; // (courseID,lineNumber)
 
-    //to prevent user from creating new Database
+    /**
+     * Private Constructor
+     */
     private Database() {
         users = new ConcurrentHashMap<>();
         courses = new HashMap<>();
@@ -38,9 +41,11 @@ public class Database {
         initialize(DEFAULT_COURSES_PATH);
     }
 
-    // ask in forum if can add databaseholder
+    /**
+     * Thread safe singleton
+     */
     private static class DatabaseHolder {
-        private static Database instance = new Database();
+        private static final Database instance = new Database();
     }
 
     /**
@@ -50,16 +55,12 @@ public class Database {
         return DatabaseHolder.instance;
     }
 
-    public User getUser(String username) throws UserNotExistException {
-        User user = users.get(username);
-        if (user == null)
-            throw new UserNotExistException("No such username");
-        return user;
-    }
-
-    public int getCourseLineNumber (int courseID) {
-        return coursesOrder.get(courseID);
-    }
+    /**
+     * Creating new admin with 'username' and 'password'
+     * @param username = username
+     * @param password = password
+     * @throws AmbiguousUsernameException if this username is already in use
+     */
 
     public void createAdmin(String username, String password) throws AmbiguousUsernameException {
         User user = new Admin(username,password);
@@ -67,11 +68,25 @@ public class Database {
             throw new AmbiguousUsernameException("The username: " + username + " already exists");
     }
 
+    /**
+     * Creating new student with 'username' and 'password'
+     * @param username = username
+     * @param password = password
+     * @throws AmbiguousUsernameException if this username is already in use
+     */
+
     public void createStudent(String username, String password) throws AmbiguousUsernameException {
         User user = new Student(username,password);
         if (users.putIfAbsent(username, user) != null)
             throw new AmbiguousUsernameException("The username: " + username + " already exists");
     }
+
+    /**
+     * Checking if the courseID is a valid course
+     * @param courseID = course ID
+     * @return course Object matching the courseID
+     * @throws InvalidCourseException if the courseID doesn't exist
+     */
 
     public Course verifyValidCourse(int courseID) throws InvalidCourseException {
         Course course = courses.get(courseID);
@@ -80,40 +95,35 @@ public class Database {
         return course;
     }
 
-
     /**
      * loades the courses from the file path specified
      * into the Database, returns true if successful.
      */
-    // ask if can add the public instead of packageprivate
-    boolean initialize(String coursesFilePath) { // make sure database is initialized before client can connect to the server
-
-
-        List<String> lines;
-
+    boolean initialize(String coursesFilePath) {
+        List<String> lines; // parsing the Courses.txt file
         try {
             lines = Files.readAllLines(Paths.get(coursesFilePath));
         } catch (IOException e) {
             e.getStackTrace();
-           return false;
+            return false;
         }
-        List<Integer> coursesID = parseToCourses(lines);
-        boolean success = (coursesID != null);
+        List<Integer> coursesIDs = parseToCourses(lines);
+        boolean success = (coursesIDs != null); // checking if the parsing was successful
         if (success)
-            sortKdams(coursesID);
+            sortKdams(coursesIDs);
         return success;
     }
 
-    private void sortKdams(List<Integer> coursesID) {
-        for (Integer courseID : coursesID) {
+    private void sortKdams(List<Integer> coursesIDs) { // sorting the kdams according to their appearance in the courses.txt file
+        for (Integer courseID : coursesIDs) {
             Course course = courses.get(courseID);
             ArrayList<Integer> kdams = course.getKdams();
-            kdams.sort(Comparator.comparingInt(o -> coursesOrder.get(o)));
+            kdams.sort(Comparator.comparingInt(coursesOrder::get));
             course.setKdams(kdams);
         }
     }
 
-    private List<Integer> parseToCourses(List<String> lines) {
+    private List<Integer> parseToCourses(List<String> lines) { // Creating all the courses according to the lines list
         List<Integer> coursesID = new ArrayList<>();
         int lineNumber = 1;
         for (String line : lines) {
@@ -131,22 +141,41 @@ public class Database {
         return coursesID;
     }
 
-    private Course createCourse(String[] courseInfo,int line) {
-        // parse courseId
-        int courseId = Integer.parseInt(courseInfo[DEFAULT_COURSE_ID_POSITION]);
-        // parse courseName
-        String courseName = courseInfo[DEFAULT_COURSE_NAME_POSITION];
-        //parse kdams list
-        String kdamsText = courseInfo[2].substring(1,courseInfo[DEFAULT_COURSE_KDAMS_POSITION].length()-1);
+    private Course createCourse(String[] courseInfo,int line) { // creating a new course with a given course parameters from the Course.txt file
+        int courseId = Integer.parseInt(courseInfo[DEFAULT_COURSE_ID_POSITION]); // parse courseId
+        String courseName = courseInfo[DEFAULT_COURSE_NAME_POSITION]; // parse courseName
+        String kdamsText = courseInfo[2].substring(1,courseInfo[DEFAULT_COURSE_KDAMS_POSITION].length()-1); //parse kdams list
         String[] splitKdams = kdamsText.split(",");
         ArrayList<Integer> kdams = new ArrayList<>();
-        for (String splitKdam : splitKdams) {
+        for (String splitKdam : splitKdams) { // initializing the kdams of the course
             if (!splitKdam.equals(""))
                 kdams.add(Integer.parseInt(splitKdam));
         }
-        //parse seats
-        int seats = Integer.parseInt(courseInfo[DEFAULT_COURSE_SEATS_POSITION]);
+        int seats = Integer.parseInt(courseInfo[DEFAULT_COURSE_SEATS_POSITION]); //parse seats
         coursesOrder.put(courseId,line);
         return new Course(courseId,courseName,kdams,seats);
+    }
+
+
+    /**
+     *
+     * @param username = required username
+     * @return User object matching the username
+     * @throws UserNotExistException if the user doesn't exist
+     */
+    public User getUser(String username) throws UserNotExistException {
+        User user = users.get(username);
+        if (user == null)
+            throw new UserNotExistException("No such username");
+        return user;
+    }
+
+    /**
+     * Returns the line number of the courseID in the Courses.txt file
+     * @param courseID = course ID
+     * @return line number from Courses.txt
+     */
+    public int getCourseLineNumber (int courseID) {
+        return coursesOrder.get(courseID);
     }
 }

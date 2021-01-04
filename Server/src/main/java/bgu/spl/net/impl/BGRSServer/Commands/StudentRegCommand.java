@@ -7,9 +7,12 @@ import bgu.spl.net.impl.BGRSServer.Message;
 
 public class StudentRegCommand extends Command {
     private static final short opCode = 2;
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
+    /**
+     * Constructor.
+     */
     public StudentRegCommand(User user, Message msg){
         super.user = user;
         username = msg.getUsername();
@@ -25,7 +28,6 @@ public class StudentRegCommand extends Command {
             return new Message(ACK_OP_CODE,opCode);
         }
         catch (AmbiguousUsernameException | UserLoginException e) {
-         //   System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE,opCode);
         }
     }
