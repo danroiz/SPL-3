@@ -1,5 +1,6 @@
 package bgu.spl.net.impl.BGRSServer.Tester;
 
+import bgu.spl.net.impl.BGRSServer.ReactorMain;
 import bgu.spl.net.impl.BGRSServer.TPCMain;
 
 import java.nio.charset.Charset;
@@ -11,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class Tests implements Runnable {
 
-    private final int         numThreads = 20;
+    private final int         numThreads = 25;
     private ArrayList<Course> courses    = new ArrayList<>();
 
     public ArrayList<CommandProcessor> initiateProcesses(int numProcesses) {
@@ -237,7 +238,7 @@ public class Tests implements Runnable {
             if (numTimesSuccess == numThreads * 3)
                 response = ("Admin Logical Tests Test Passed!");
             else
-                response = response +("Admin Logical Tests Test Failed!");
+                response = ("Admin Logical Tests Test Failed!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -659,7 +660,8 @@ public class Tests implements Runnable {
 
             System.out.println("Be patient...");
             new Thread(() -> {
-                TPCMain.main(new String[]{"7777"}); //You can change it to reactor also
+           //     TPCMain.main(new String[]{"7777"}); //You can change it to reactor also
+                ReactorMain.main(new String[]{"7777","8"}); //You can change it to reactor also
             }).start();
 
             ArrayList<String> testAnswers = new ArrayList<>();

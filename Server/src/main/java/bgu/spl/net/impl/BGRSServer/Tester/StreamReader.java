@@ -5,7 +5,7 @@ import java.io.*;
 public class StreamReader implements Runnable {
 
     private final   InputStream is;
-    private         String  lastOutput = "Starting connect to 192.168.3.8:7777";
+    private         String  lastOutput = "Starting connect to 127.0.0.1:7777";
     private         String  allOutPut  = "";
 
     private boolean continueRead = true;
@@ -35,7 +35,7 @@ public class StreamReader implements Runnable {
             BufferedReader br     = new BufferedReader(isr);
             String currentLine    = "";
             while ((currentLine = br.readLine()) != null) {
-                if(currentLine.equals("Starting connect to 192.168.3.8:7777")) {
+                if(currentLine.equals("Starting connect to 127.0.0.1:7777")) {
                     readyToWrite = true;
                 }
                 currentLine = currentLine.replaceAll("\0",""); //sanity

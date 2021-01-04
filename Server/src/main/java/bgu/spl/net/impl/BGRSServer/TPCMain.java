@@ -7,18 +7,9 @@ import java.util.TreeSet;
 
 public class TPCMain {
     public static void main(String[] args) {
-        /* TO DO:
-         * fix thread safe for database (course class)
-         * add exceptions
-         * fix encoding of ERR (not need \0 at the end)
-         */
-
-        //boolean succ = Database.getInstance().initialize("Courses.txt");  //one shared object
-        //System.out.println("Initialize database: " );
-
-// you can use any server...
+        int port = Integer.parseInt(args[0]);
         Server.threadPerClient(
-                7777, //port
+                port,
                 CourseRegistrationProtocol::new, //protocol factory
                 CourseRegistrationEncoderDecoder::new //message encoder decoder factory
         ).serve();
