@@ -31,7 +31,5 @@ int main (int argc, char *argv[]) {
     std::thread socketThread(std::ref(socketReader));
 
     socketThread.join();
-    keyboardThread.join();
-
-    return 0;
+    exit(0);
 }

@@ -40,11 +40,3 @@ SocketReader.h
 KeyboardReader.h
 /mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/KeyboardReader.h
 
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/SocketReader.cpp
-SocketReader.h
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/SocketReader.h
-
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client/src/connectionHandler.cpp
-connectionHandler.h
--
-

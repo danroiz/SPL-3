@@ -37,6 +37,12 @@ public class Admin extends User {
         invalidCommand("UNREGISTER");
     }
 
+    @Override
+    public String KdamCheck(Course course) throws NotAuthorizedException {
+        invalidCommand("KDAMCHECK");
+        return null;
+    }
+
     private void invalidCommand(String CommandType) throws NotAuthorizedException {
         throw new NotAuthorizedException("Admin can not handle " + CommandType);
     }

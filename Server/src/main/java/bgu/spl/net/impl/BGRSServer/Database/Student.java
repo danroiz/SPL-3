@@ -6,6 +6,7 @@ import bgu.spl.net.impl.BGRSServer.Exceptions.RegisterException;
 import bgu.spl.net.impl.BGRSServer.Exceptions.UnRegisterException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Student extends User {
     private TreeMap<Integer,Integer> sortedRegisteredCoursesTree; // Key: LineNumber, Value: CourseID
@@ -50,6 +51,12 @@ public class Student extends User {
     public void unRegisterCourse(Course course) throws UnRegisterException {
         removeCourse(course.getCourseId());
         course.unRegister(getName());
+    }
+
+    @Override
+    public String KdamCheck(Course course) {
+       return "[" + course.getKdams().stream().map(Object::toString)
+                .collect(Collectors.joining(",")) + "]";
     }
 
     private void removeCourse(Integer courseId) throws UnRegisterException {

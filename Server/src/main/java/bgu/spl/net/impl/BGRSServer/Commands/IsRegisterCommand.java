@@ -25,7 +25,7 @@ public class IsRegisterCommand extends Command{
             return new Message(ACK_OP_CODE,opCode,isRegister);
         }
         catch (NotLoggedException | NotAuthorizedException | InvalidCourseException e){
-            System.out.println(e.getMessage());
+         //   System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE,opCode);}
     }
 }

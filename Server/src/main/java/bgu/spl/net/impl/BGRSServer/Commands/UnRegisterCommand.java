@@ -25,7 +25,7 @@ public class UnRegisterCommand extends Command{
             user.unRegisterCourse(course);
             return new Message(ACK_OP_CODE,opCode);
         } catch (UnRegisterException  | InvalidCourseException | NotLoggedException | NotAuthorizedException e) {
-            System.out.println(e.getMessage());
+        //    System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE,opCode);
         }
     }

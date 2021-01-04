@@ -35,7 +35,7 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
                 T nextMessage = encdec.decodeNextByte((byte) read);
                 // System.out.println("msg == null? " + nextMessage == null);
                 if (nextMessage != null) {
-                    System.out.println("Connection Handler: send message to process");
+                 //   System.out.println("Connection Handler: send message to process");
                     T response = protocol.process(nextMessage);
                     if (response != null) {
                         out.write(encdec.encode(response));
@@ -43,7 +43,7 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
                     }
                 }
             }
-            System.out.println("we lost a thread " + Thread.currentThread());
+          //  System.out.println("we lost a thread " + Thread.currentThread());
 
         } catch (IOException ex) {
             ex.printStackTrace();

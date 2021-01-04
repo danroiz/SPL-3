@@ -36,7 +36,7 @@ public abstract class BaseServer<T> implements Server<T> {
             while (!Thread.currentThread().isInterrupted()) {
 
                 Socket clientSock = serverSock.accept();
-                System.out.println("New socket accepted" + clientSock); // remove this line
+            //    System.out.println("New socket accepted" + clientSock); // remove this line
 
                 BlockingConnectionHandler<T> handler = new BlockingConnectionHandler<>(
                         clientSock,

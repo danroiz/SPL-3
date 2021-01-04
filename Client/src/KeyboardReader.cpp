@@ -14,7 +14,7 @@ KeyboardReader::KeyboardReader(ConnectionHandler & connectionHandler): connectio
 }
 void KeyboardReader::operator()() {
     string line;
-    while (!connectionHandler.terminate1) { // add termination condition in connection handler
+    while (true) { // add termination condition in connection handler
         const short bufsize = 1024;
         char buf[bufsize];
 
@@ -68,8 +68,8 @@ void KeyboardReader::operator()() {
 
             connectionHandler.sendBytes(message,2);
             if (opCode == 4){
-                connectionHandler.terminate1 = true; // if logout command entered, sleep for 1 second before getting another command from the keyboard
-                sleep(1);
+              //  connectionHandler.terminate1 = true; // if logout command entered, sleep for 1 second before getting another command from the keyboard
+              //  sleep(1);
             }
         }
         else if (opCode == 5 || opCode == 6 || opCode == 7 || opCode == 9 || opCode == 10) {

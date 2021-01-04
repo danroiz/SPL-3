@@ -19,7 +19,7 @@ public class MyCoursesCommand extends Command {
             String userStats = user.getCourses(); // check if the requested user is a student
             return new Message(ACK_OP_CODE, opCode, userStats);
         } catch (NotLoggedException | NotAuthorizedException e) {
-            System.out.println(e.getMessage());
+        //    System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE, opCode);
         }
     }

@@ -43,4 +43,6 @@ public abstract class User {
     public abstract String isRegistered(int courseID) throws NotAuthorizedException;
 
     public abstract void unRegisterCourse(Course course) throws NotAuthorizedException, UnRegisterException;
+
+    public abstract String KdamCheck(Course course) throws NotAuthorizedException;
 }

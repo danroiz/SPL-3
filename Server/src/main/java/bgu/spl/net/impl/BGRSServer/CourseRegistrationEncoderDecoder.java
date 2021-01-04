@@ -57,7 +57,6 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
             if (username != null)
                 output = popMessage();
         }
-      //  System.out.println("Encoder decoder output status: " + output);
         return output; //not a line yet
     }
 
@@ -89,7 +88,6 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
         byte[] additionalBytes = new byte[0];
         if (hasAdditionalMsg) {
             additionalBytes = (message.getAdditionalMsg()).getBytes();
-            System.out.println("I GOT ADDITIONAL MESSAGE");
         }
 
         boolean isACK = (message.getOpCode() == ACK_OP_CODE);

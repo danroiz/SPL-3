@@ -29,7 +29,7 @@ public class CourseRegistrationProtocol implements MessagingProtocol<Message> {
     @Override
     public Message process(Message msg) {
         int opCode = msg.getOpCode();
-        System.out.println("New message arrived " + msg.getOpCode());
+     //   System.out.println("New message arrived " + msg.getOpCode());
         CommandSupplier commandSupplier = commandSupplierHashMap.get(opCode);
         Command command = commandSupplier.createCommand(user, msg);
         Message message = command.execute();

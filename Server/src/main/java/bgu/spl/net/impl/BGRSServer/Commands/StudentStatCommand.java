@@ -26,7 +26,7 @@ public class StudentStatCommand extends Command{
             return new Message(ACK_OP_CODE,opCode,"Student: " + checkUser.getName() + "\n" + "Courses: " + userStats);
         }
         catch (UserNotExistException | NotLoggedException | NotAuthorizedException e) {
-            System.out.println(e.getMessage());
+        //    System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE, opCode);
         }
     }
