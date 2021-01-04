@@ -660,8 +660,8 @@ public class Tests implements Runnable {
 
             System.out.println("Be patient...");
             new Thread(() -> {
-           //     TPCMain.main(new String[]{"7777"}); //You can change it to reactor also
-                ReactorMain.main(new String[]{"7777","8"}); //You can change it to reactor also
+                TPCMain.main(new String[]{"7777"}); //You can change it to reactor also
+           //     ReactorMain.main(new String[]{"7777","8"}); //You can change it to reactor also
             }).start();
 
             ArrayList<String> testAnswers = new ArrayList<>();

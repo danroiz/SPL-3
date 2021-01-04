@@ -1,17 +1,18 @@
 package bgu.spl.net.impl.BGRSServer.Database;
 import bgu.spl.net.impl.BGRSServer.Exceptions.CourseFullException;
-
 import java.util.ArrayList;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Course {
-    private String courseName;
-    private int courseId;
+    private final String courseName;
+    private final int courseId;
     private ArrayList<Integer> kdams;
-    private int seats;
-    private ConcurrentSkipListSet<String> registeredUsers;
+    private final int seats;
+    private final ConcurrentSkipListSet<String> registeredUsers;
 
+    /**
+     *Constructor.
+     */
     public Course(int courseId, String courseName, ArrayList<Integer> kdams, int seats){
         this.courseId = courseId;
         this.courseName = courseName;
@@ -20,35 +21,11 @@ public class Course {
         registeredUsers = new ConcurrentSkipListSet<>();
     }
 
-    public void setKdams(ArrayList<Integer> kdams) {
-        this.kdams = kdams;
-    }
-
-    public ArrayList<Integer> getKdams () {
-        return kdams;
-    }
-
-    // consider to be synco
-    public String getRegisteredUsers () {
-        return registeredUsers.toString().replaceAll("\\s", "");
-    }
-
-    // consider to be synco
-    public int getFreeSeats () {
-        return seats - registeredUsers.size();
-    }
-    public int getTotalSeats () {
-        return seats;
-    }
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
+    /**
+     * Register the studentName to this course
+     * @param studentName
+     * @throws CourseFullException
+     */
     public synchronized void register(String studentName) throws CourseFullException {
         if (registeredUsers.size() == seats){
             throw new CourseFullException("No available seats at this course. try next semester. course: " + courseName);
@@ -56,11 +33,44 @@ public class Course {
         registeredUsers.add(studentName);
     }
 
-    public String getStats() {
-        return "Course: (" + courseId + ") " + getCourseName() + "\n" + "Seats Available: " + getFreeSeats() + "/" + getTotalSeats() +"\n"+ "Students Registered: " + getRegisteredUsers();
+    /**
+     * Unregister studentName from this course
+     * @param studentName
+     */
+    public synchronized void unRegister(String studentName) {
+        registeredUsers.remove(studentName);
     }
 
-    public synchronized void unRegister(String username) {
-        registeredUsers.remove(username);
+    /**
+     * Setting the kdams of this course to be:
+     * @param kdams
+     */
+    public void setKdams(ArrayList<Integer> kdams) {
+        this.kdams = kdams;
+    }
+
+    /**
+     * Getters
+     */
+    public ArrayList<Integer> getKdams () {
+        return kdams;
+    }
+    public String getRegisteredUsers () {
+        return registeredUsers.toString().replaceAll("\\s", "");
+    }
+    public int getFreeSeats () {
+        return seats - registeredUsers.size();
+    }
+    public int getTotalSeats () {
+        return seats;
+    }
+    public Integer getCourseId() {
+        return courseId;
+    }
+    public String getCourseName() {
+        return courseName;
+    }
+        public String getStats() {
+        return "Course: (" + courseId + ") " + getCourseName() + "\n" + "Seats Available: " + getFreeSeats() + "/" + getTotalSeats() +"\n"+ "Students Registered: " + getRegisteredUsers();
     }
 }

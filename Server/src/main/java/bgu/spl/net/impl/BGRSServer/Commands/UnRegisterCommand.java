@@ -10,8 +10,11 @@ import bgu.spl.net.impl.BGRSServer.Message;
 
 public class UnRegisterCommand extends Command{
     private static final short opCode = 10;
-    private short courseID;
+    private final short courseID;
 
+    /**
+     * Constructor.
+     */
     public UnRegisterCommand(User user, Message msg) {
         super.user = user;
         courseID = msg.getCourseID();
@@ -25,7 +28,6 @@ public class UnRegisterCommand extends Command{
             user.unRegisterCourse(course);
             return new Message(ACK_OP_CODE,opCode);
         } catch (UnRegisterException  | InvalidCourseException | NotLoggedException | NotAuthorizedException e) {
-        //    System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE,opCode);
         }
     }

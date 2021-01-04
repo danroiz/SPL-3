@@ -1,11 +1,20 @@
 package bgu.spl.net.impl.BGRSServer.Database;
-
 import bgu.spl.net.impl.BGRSServer.Exceptions.NotAuthorizedException;
 
 public class Admin extends User {
+
+    /**
+     * Constructor.
+     */
     public Admin(String userName, String password) {
         super(userName, password);
     }
+
+    @Override
+    public void courseStats(){}
+
+    @Override
+    public void statCommand(User checkUser) {}
 
     @Override
     public void registerCourse(Course course) throws NotAuthorizedException {
@@ -13,18 +22,10 @@ public class Admin extends User {
     }
 
     @Override
-    public void courseStats(){
-
-    }
-
-    @Override
     public String getCourses() throws NotAuthorizedException {
         invalidCommand("Admin does not have stats");
         return null;
     }
-
-    @Override
-    public void statCommand(User checkUser) { }
 
     @Override
     public String isRegistered(int courseID) throws NotAuthorizedException {

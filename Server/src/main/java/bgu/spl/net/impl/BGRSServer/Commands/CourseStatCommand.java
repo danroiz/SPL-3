@@ -9,8 +9,11 @@ import bgu.spl.net.impl.BGRSServer.Message;
 
 public class CourseStatCommand extends Command{
     private static final short opCode = 7;
-    private short courseID;
+    private final short courseID;
 
+    /**
+     * Constructor.
+     */
     public CourseStatCommand(User user, Message msg) {
         super.user = user;
         courseID = msg.getCourseID();
@@ -25,7 +28,6 @@ public class CourseStatCommand extends Command{
             return new Message(ACK_OP_CODE,opCode,course.getStats());
         }
         catch (NotLoggedException | NotAuthorizedException | InvalidCourseException e){
-         //   System.out.println(e.getMessage());
             return new Message(ERROR_OP_CODE,opCode);}
     }
 
