@@ -15,7 +15,6 @@ private:
 	tcp::socket socket_;
 
 public:
-    bool shouldTerminate;
     ConnectionHandler(std::string &host, short port);
     virtual ~ConnectionHandler();
  

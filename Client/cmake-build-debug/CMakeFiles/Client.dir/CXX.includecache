@@ -7,12 +7,20 @@
 #IncludeRegexTransform: 
 
 ../include/KeyboardReader.h
+mutex
+-
+condition_variable
+-
 connectionHandler.h
 ../include/connectionHandler.h
 unordered_map
 -
 
 ../include/SocketReader.h
+mutex
+-
+condition_variable
+-
 connectionHandler.h
 ../include/connectionHandler.h
 
@@ -31,8 +39,24 @@ connectionHandler.h
 -
 thread
 -
+mutex
+-
+condition_variable
+-
 KeyboardReader.h
 /home/dorei/Projects/SPL-3/Client/src/KeyboardReader.h
 SocketReader.h
 /home/dorei/Projects/SPL-3/Client/src/SocketReader.h
+
+/home/dorei/Projects/SPL-3/Client/src/KeyboardReader.cpp
+KeyboardReader.h
+/home/dorei/Projects/SPL-3/Client/src/KeyboardReader.h
+
+/home/dorei/Projects/SPL-3/Client/src/SocketReader.cpp
+SocketReader.h
+/home/dorei/Projects/SPL-3/Client/src/SocketReader.h
+
+/home/dorei/Projects/SPL-3/Client/src/connectionHandler.cpp
+connectionHandler.h
+-
 

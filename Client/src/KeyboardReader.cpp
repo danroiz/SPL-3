@@ -1,6 +1,6 @@
 #include "KeyboardReader.h"
 using namespace std;
-KeyboardReader::KeyboardReader(ConnectionHandler & connectionHandler): connectionHandler(connectionHandler), opCodesMap() {
+KeyboardReader::KeyboardReader(ConnectionHandler& connectionHandler, mutex &mtx, condition_variable& conditionVariable, bool& shouldTerminate): connectionHandler(connectionHandler), opCodesMap(), mtx(mtx),conditionVariable(conditionVariable), shouldTerminate(shouldTerminate) {
     opCodesMap.insert(pair<string , short>("ADMINREG", 1)); opCodesMap.insert(pair<string , short>("COURSESTAT", 7));
     opCodesMap.insert(pair<string , short>("STUDENTREG", 2)); opCodesMap.insert(pair<string , short>("STUDENTSTAT", 8));
     opCodesMap.insert(pair<string , short>("LOGIN", 3)); opCodesMap.insert(pair<string , short>("ISREGISTERED", 9));
@@ -11,8 +11,7 @@ KeyboardReader::KeyboardReader(ConnectionHandler & connectionHandler): connectio
 
 void KeyboardReader::operator()() {
     string line;
-    while (!connectionHandler.shouldTerminate) {
-
+    while (!shouldTerminate) {
         const short bufsize = 1024;
         char buf[bufsize];
         std::cin.getline(buf, bufsize);
@@ -48,7 +47,8 @@ void KeyboardReader::operator()() {
             begin_index = copyBytesArray(message,opCodeBytes,begin_index,2);
             connectionHandler.sendBytes(message,begin_index);
             if (opCode == 4){
-                sleep(1);
+                unique_lock<mutex> lock(mtx);
+                conditionVariable.wait(lock); // wait until the SocketReader gets a reply and determine if shouldTerminate
             }
         }
         else if (opCode == 5 || opCode == 6 || opCode == 7 || opCode == 9 || opCode == 10) {
@@ -85,3 +85,4 @@ void KeyboardReader::shortToBytes( short num, char *bytesArr) {
     bytesArr[0] = ((num >> 8) & 0xFF);
     bytesArr[1] = (num & 0xFF);
 }
+

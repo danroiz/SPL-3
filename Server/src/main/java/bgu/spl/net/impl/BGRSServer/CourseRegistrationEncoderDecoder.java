@@ -122,10 +122,8 @@ public class CourseRegistrationEncoderDecoder implements MessageEncoderDecoder<M
             stringByteLen = 0; // reset
             return result;
         }
-
         if (stringByteLen >= stringByte.length) // size is not enough
             stringByte = Arrays.copyOf(stringByte, stringByteLen * 2);
-
         stringByte[stringByteLen++] = nextByte; // read next byte
         return null; // didnt finish to read the string
     }
