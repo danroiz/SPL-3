@@ -10,6 +10,12 @@ public class TPCMain {
                 CourseRegistrationEncoderDecoder::new //message encoder decoder factory
         ).serve();
     }
+    // Added comments
+    /*
+
+    IGNORE
+
+     */
 }
 
 
