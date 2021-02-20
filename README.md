@@ -23,12 +23,13 @@ mvn compile
 
 Reactor server execute:
 
-mvn exec:java -Dexec.mainClass="bgu.spl.net.impl.BGRSServer.ReactorMain" -Dexec.args="<port> <Num of threads>"
+mvn exec:java -Dexec.mainClass=&ldquo;bgu.spl.net.impl.BGRSServer.ReactorMain&ldquo; -Dexec.args=&ldquo;&#60;port&#62; &#60;number of thread&#62;&ldquo;
 
 Thread per client server execute:
 
-mvn exec:java -Dexec.mainClass="bgu.spl.net.impl.BGRSServer.TPCMain" -Dexec.args="<port>"
+mvn exec:java -Dexec.mainClass=&ldquo;bgu.spl.net.impl.BGRSServer.TPCMain&ldquo; -Dexec.args=&ldquo;&#60;port&#62;&ldquo;
 
 Client execute:
 
-BGRSclient <ip> <port>
+BGRSclient &#60;ip&#62; &#60;port&#62;
+
