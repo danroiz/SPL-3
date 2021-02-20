@@ -1,4 +1,4 @@
-# Java Server & C++ Client Project
+# Multi-Thread Java Server & C++ Client Project
 # University Course Registartion System
 
 ---------------------------------------------------------
