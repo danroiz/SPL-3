@@ -1,3 +1,0 @@
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/cmake-build-debug/CMakeFiles/Client_2.dir
-/mnt/c/Dor/BGU/C/SPL/SPL-3/Client 2/cmake-build-debug/CMakeFiles/edit_cache.dir
